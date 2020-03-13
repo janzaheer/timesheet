@@ -5,9 +5,11 @@ from django.contrib.auth import authenticate
 from django.urls import reverse, reverse_lazy
 from django.views.generic import TemplateView, FormView, RedirectView
 from django.http import HttpResponseRedirect
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class IndexView(TemplateView):
+class IndexView(LoginRequiredMixin, TemplateView):
+    login_url = reverse_lazy('common:login')
     template_name = 'index.html'
 
 
