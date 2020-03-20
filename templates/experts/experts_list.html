@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="content-header">
+    <h1>
+    Timesheet
+    <small>Timesheet Management System</small>
+    </h1>
+    <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li class="active">Experts</li>
+    </ol>
+</section>
+<section class="content">
+      <!-- COLOR PALETTE -->
+      <div class="box box-default color-palette-box">
+        <div class="box-header with-border">
+          <h3 class="box-title"><i class="fa fa-tag"></i> Experts</h3>
+        </div>
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>S/No</th>
+                        <th>Username</th>
+                        <th>Name</th>
+                        <th>Mobile</th>
+                        <th>Address</th>
+                        <th>VAT</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for expert in object_list %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ expert.expert_user.user.username }}</td>
+                            <td>{{ expert.name|title }}</td>
+                            <td>{{ expert.mobile }}</td>
+                            <td>{{ expert.address }}</td>
+                            <td>{{ expert.vat }}</td>
+                            <td>
+                                <a href="{% url 'experts:experts_update' pk=expert.id %}"><button class="btn btn-primary btn-xs">Edit</button></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+        </div>
+      </div>
+</section>     
+{% endblock %}

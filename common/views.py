@@ -20,6 +20,18 @@ class LoginView(FormView):
     def dispatch(self, request, *args, **kwargs):
     
         if self.request.user.is_authenticated:
+            try: 
+                if self.request.user.user_expert:
+                    return HttpResponseRedirect(reverse('experts:expert_list'))
+            except:
+                pass
+
+            try:
+                if self.request.user.user_admin:
+                    return HttpResponseRedirect(reverse('admins:index'))
+            except:
+                pass
+
             return HttpResponseRedirect(reverse('common:index'))
 
         return super().dispatch(request, *args, **kwargs)
@@ -27,6 +39,18 @@ class LoginView(FormView):
     def form_valid(self, form):
         user = form.get_user()
         auth_login(self.request, user)
+
+        try: 
+            if user.user_expert:
+                return HttpResponseRedirect(reverse('experts:expert_list'))
+        except:
+            pass
+
+        try:
+            if user.user_admin:
+                return HttpResponseRedirect(reverse('admins:index'))
+        except:
+            pass
 
         return HttpResponseRedirect(reverse('common:index'))
     

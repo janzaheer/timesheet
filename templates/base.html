@@ -65,7 +65,33 @@
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li><a href="#"><i class="fa fa-book"></i> <span>Dashboard</span></a></li>
+        {% if request.user.user_admin %}
+            <li class="header">MAIN NAVIGATION</li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>Projects</span>
+                    <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{% url 'admins:admin_project_create' %}"><i class="fa fa-circle-o"></i> Create Project</a></li>
+                    <li><a href="{% url 'admins:index' %}"><i class="fa fa-circle-o"></i> All Projects</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-user"></i> <span>Experts</span>
+                    <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{% url 'experts:experts_create' %}"><i class="fa fa-circle-o"></i> Create Expert</a></li>
+                    <li><a href="{% url 'experts:expert_list' %}"><i class="fa fa-circle-o"></i> All Experts</a></li>
+                </ul>
+            </li>
+        {% endif %}
         <li class="header">User Settings</li>
         <li><a href="{% url 'common:logout' %}"><i class="fa fa-circle-o text-red"></i> <span>Logout</span></a></li>
       </ul>

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="content-header">
+    <h1>
+    Timesheet
+    <small>Admin Projects</small>
+    </h1>
+    <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li>Project</li>
+    <li class="active">add</li>
+    </ol>
+</section>
+<section class="content">
+      <!-- COLOR PALETTE -->
+      <div class="box box-default color-palette-box">
+        <div class="box-header with-border">
+          <h3 class="box-title"><i class="fa fa-tag"></i> Add New Project</h3>
+        </div>
+        <div class="box-body">
+            {{ form.errors }}
+            <form action="{% url 'admins:admin_project_create' %}" method="POST"><br>
+                {% csrf_token %}
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Project Name</label>
+                            <input type="text" class="form-control" placeholder="Add Project Name" name="name" required></input><br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Project Description</label>
+                            <textarea class="form-control" placeholder="Add Project Description" name="description" rows="4"></textarea><br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>Project Start Date</label>
+                            <input type="date" class="form-control" name="start_date"></input><br>
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Project End Date</label>
+                            <input type="date" class="form-control" name="end_date"></input><br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Project Status</label>
+                            <select class="form-control" name='status_set'>
+                                <option></option>
+                                <option value="{{ True }}">True</option>
+                                <option value="{{ False }}">False</option>
+                            </select><br>
+                        </div>
+                    </div>
+                    <input type="hidden" name="admin" value="{{ request.user.user_admin.admin.id }}"></input>
+                    <div class="row">
+                        <div class="col-lg-12 text-right">
+                            <button type="submit" class="btn btn-primary">Save</button><br>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+      </div>
+</section>  
+{% endblock %}
