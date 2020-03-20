@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="content-header">
+    <h1>
+    Timesheet
+    <small>Timesheet Management System</small>
+    </h1>
+    <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li class="active">Timesheet</li>
+    </ol>
+</section>
+<section class="content">
+      <!-- COLOR PALETTE -->
+      <div class="box box-default color-palette-box">
+        <div class="box-header with-border">
+          <h3 class="box-title"><i class="fa fa-tag"></i> Expert Timesheets</h3>
+        </div>
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>S/No</th>
+                        <th>Project</th>
+                        <th>Timesheet Title</th>
+                        <th>admin</th>
+                        <th>Details</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for timsheet in object_list %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ timsheet.project.name|title }}</td>
+                            <td>{{ timsheet.title|title }}</td>
+                            <td>{{ timsheet.project.admin.name|title }}</td>
+                            <td>{{ timsheet.details }}</td>
+                            <td>{{ timsheet.start_date }}</td>
+                            <td>{{ timsheet.end_date }}</td>
+                            <td>
+                                <a href="{% url 'projects:timesheet_update' pk=timsheet.id %}"><button class="btn btn-primary btn-xs">Edit</button></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+        </div>
+      </div>
+</section>     
+{% endblock %}
