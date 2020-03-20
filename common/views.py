@@ -22,7 +22,7 @@ class LoginView(FormView):
         if self.request.user.is_authenticated:
             try: 
                 if self.request.user.user_expert:
-                    return HttpResponseRedirect(reverse('experts:expert_list'))
+                    return HttpResponseRedirect(reverse('projects:timesheet_list'))
             except:
                 pass
 
@@ -42,7 +42,7 @@ class LoginView(FormView):
 
         try: 
             if user.user_expert:
-                return HttpResponseRedirect(reverse('experts:expert_list'))
+                return HttpResponseRedirect(reverse('projects:timesheet_list'))
         except:
             pass
 
