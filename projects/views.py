@@ -6,8 +6,8 @@ from django.views.generic import (
 from django.contrib.auth import forms as auth_forms
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import Timesheet
-from .forms import TimesheetForm
+from .models import Timesheet, TimeSheetRecord
+from .forms import TimesheetForm, TimesheetRecordForm
 from projects.models import Project
 
 
@@ -56,3 +56,52 @@ class TimesheetUpdateView(LoginRequiredMixin, ExpertUserValidateMixin, UpdateVie
         context = super().get_context_data(**kwargs)
         context["projects"] = Project.objects.all().order_by('name') 
         return context
+
+class TimesheetRecordListView(LoginRequiredMixin, ExpertUserValidateMixin, ListView):
+    template_name =  'projects/timesheet_record_list.html'
+    model = TimeSheetRecord
+    paginate_by = 100
+
+    def get_queryset(self):
+        queryset = self.queryset
+        if not queryset:
+            queryset = TimeSheetRecord.objects.filter(
+                timesheet__id=self.kwargs.get('pk'))
+
+        return queryset.order_by('-id')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
+        context["timesheet"] = Timesheet.objects.get(id=self.kwargs.get('pk'))
+        return context
+
+
+class TimesheetReccordFormView(LoginRequiredMixin, ExpertUserValidateMixin, FormView):
+    template_name = 'projects/timesheet_record_create.html'
+    form_class = TimesheetRecordForm
+
+    def form_valid(self, form):
+        record=form.save()
+        return HttpResponseRedirect(reverse('projects:timesheet_record_list',kwargs={'pk': record.timesheet.id}))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
+        context["timesheet"] = Timesheet.objects.get(id=self.kwargs.get('pk'))
+        return context
+
+class TimesheetRecordUpdateView(LoginRequiredMixin, ExpertUserValidateMixin, UpdateView):
+    template_name = 'projects/timesheet_record_update.html'
+    form_class = TimesheetRecordForm
+    model = TimeSheetRecord
+
+    def form_valid(self, form):
+        record=form.save()
+        return HttpResponseRedirect(reverse('projects:timesheet_record_list',kwargs={'pk': record.timesheet.id}))
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context = super().get_context_data(**kwargs)
+    #     context["timesheet"] = Timesheet.objects.get(id=self.kwargs.get('pk'))
+    #     return context

@@ -26,8 +26,10 @@ class ExpertCreateFormView(LoginRequiredMixin, AdminUserValidateMixin, FormView)
         expert_kwargs = {
             'name': self.request.POST.get('full_name'),
             'mobile': self.request.POST.get('mobile'),
+            'position': self.request.POST.get('position'),
+            'category': self.request.POST.get('category'),
             'address': self.request.POST.get('address'),
-            'uat': self.request.POST.get('uat'),
+            'vat': self.request.POST.get('uat'),
         }
         expertform = ExpertForm(expert_kwargs)
         if expertform.is_valid:

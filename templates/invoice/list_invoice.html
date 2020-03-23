@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="content-header">
+    <h1>
+    Timesheet
+    <small>Timesheet Management System</small>
+    </h1>
+    <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li class="active">Invoices</li>
+    </ol>
+</section>
+<section class="content">
+      <!-- COLOR PALETTE -->
+      <div class="box box-default color-palette-box">
+        <div class="box-header with-border">
+          <h3 class="box-title"><i class="fa fa-tag"></i> Invoices</h3>
+        </div>
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Invoice/No</th>
+                        <th>Project</th>
+                        <th>Expert</th>
+                        <th>Invoice Company Name</th>
+                        <th>Telephone</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for invoice in object_list %}
+                        <tr>
+                            <td>{{ invoice.id|stringformat:"07d" }}</td>
+                            <td>{{ invoice.project.name }}</td>
+                            <td>{{ invoice.expert.name|title }}</td>
+                            <td>{{ invoice.invoice_company_name }}</td>
+                            <td>{{ invoice.telephone }}</td>
+                            <td>{{ invoice.email }}</td>
+                            <td>{{ invoice.address }}</td>
+                            <td>
+                                <a href="{% url 'invoice:detial' pk=invoice.id %}"><button class="btn btn-primary btn-xs">View</button></a>
+                                <a href="{% url 'invoice:update' pk=invoice.id %}"><button class="btn btn-primary btn-xs">Edit</button></a>
+
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+        </div>
+      </div>
+</section>     
+{% endblock %}

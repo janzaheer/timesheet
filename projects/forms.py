@@ -1,5 +1,5 @@
 from django import forms
-from .models import Project, Timesheet
+from .models import Project, Timesheet, TimeSheetRecord
 
 
 class ProjectForm(forms.ModelForm):
@@ -11,4 +11,10 @@ class ProjectForm(forms.ModelForm):
 class TimesheetForm(forms.ModelForm):
     class Meta:
         model = Timesheet
+        fields = '__all__'
+
+
+class TimesheetRecordForm(forms.ModelForm):
+    class Meta:
+        model = TimeSheetRecord
         fields = '__all__'

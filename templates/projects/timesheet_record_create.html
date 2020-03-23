@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="content-header">
+    <h1>
+    Timesheet
+    <small>Timesheet Management System</small>
+    </h1>
+    <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li>Timesheet</li>
+    <li class="active">add</li>
+    </ol>
+</section>
+<section class="content">
+      <!-- COLOR PALETTE -->
+      <div class="box box-default color-palette-box">
+        <div class="box-header with-border">
+          <h3 class="box-title"><i class="fa fa-tag"></i> Add New Timesheet Record</h3>
+        </div>
+        <div class="box-body">
+            {{ form.errors }}
+            <form action="{% url 'projects:timesheet_record_create' pk=timesheet.id %}" method="POST"><br>
+                {% csrf_token %}
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>Date</label>
+                            <input type="date" class="form-control" placeholder="Add Record Date" name="date" required></input><br>
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Select Day</label>
+                            <select class="form-control" name="day" required>
+                                <option value='monday'>MONDAY</option>
+                                <option value='tuesday'>TUESDAY</option>
+                                <option value='wednesday'>WEDNESDAY</option>
+                                <option value='thrusday'>THRUSDAY</option>
+                                <option value='friday'>FRIDAY</option>
+                                <option value='SATURDAY'>saturday</option>
+                                <option value='sunday'>SUNDAY</option>
+                            </select><br>                        
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>Day Worked</label>
+                            <input type="text" class="form-control" placeholder="Add Day Worked" name="day_worked" required></input><br>
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Nights Spent inside Cairo</label>
+                            <input type="text" class="form-control" placeholder="Add Night Spent inside Cairo" name="nights_spent_in_cairo" required></input><br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>Nights Spent outside Cairo</label>
+                            <input type="text" class="form-control" placeholder="Add Night Spent outside Cairo" name="nights_spent_out_cairo" required></input><br>
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Place of activity</label>
+                            <input type="text" class="form-control" placeholder="Add Place of Activity" name="place_of_activity" required></input><br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Activities</label>
+                            <textarea class="form-control" placeholder="Add Activities" name="activities" rows="4"></textarea><br>
+                        </div>
+                    </div>
+                    <input type="hidden" name="timesheet" value="{{ timesheet.id }}"></input>
+                    <div class="row">
+                        <div class="col-lg-12 text-right">
+                            <button type="submit" class="btn btn-primary">Save</button><br>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+      </div>
+</section>  
+{% endblock %}

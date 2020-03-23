@@ -28,6 +28,7 @@
   <link rel="stylesheet" href="{% static 'bower_components/bootstrap-daterangepicker/daterangepicker.css' %}">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="{% static 'plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css' %}">
+  <link rel="stylesheet" href="{% static 'dist/css/invoiceCss.css' %}">
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -91,6 +92,18 @@
                     <li><a href="{% url 'experts:expert_list' %}"><i class="fa fa-circle-o"></i> All Experts</a></li>
                 </ul>
             </li>
+            <li class="treeview">
+              <a href="#">
+                  <i class="fa fa-user"></i> <span>Invoices</span>
+                  <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+              </a>
+              <ul class="treeview-menu">
+                  <li><a href="{% url 'invoice:invoice_create' %}"><i class="fa fa-circle-o"></i> Create Invoice</a></li>
+                  <li><a href="{% url 'invoice:list' %}"><i class="fa fa-circle-o"></i> All Invoices</a></li>
+              </ul>
+          </li>
         {% endif %}
         {% if request.user.user_expert %}
             <li class="header">MAIN NAVIGATION</li>
@@ -160,5 +173,8 @@
 <script src="{% static 'dist/js/pages/dashboard.js' %}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{% static 'dist/js/demo.js' %}"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 </body>
 </html>

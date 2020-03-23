@@ -25,6 +25,11 @@
                         <th>Project</th>
                         <th>Timesheet Title</th>
                         <th>admin</th>
+                        <th>Subject of Contract</th>
+                        <th>Service Contract No.</th>
+                        <th>Identification No.</th>
+                        <th>Sofreco Contract No.</th>
+                        <th>Country</th>
                         <th>Details</th>
                         <th>Start Date</th>
                         <th>End Date</th>
@@ -38,11 +43,17 @@
                             <td>{{ timsheet.project.name|title }}</td>
                             <td>{{ timsheet.title|title }}</td>
                             <td>{{ timsheet.project.admin.name|title }}</td>
+                            <td>{{ timsheet.subject_of_contract }}</td>
+                            <td>{{ timsheet.service_contract_no }}</td>
+                            <td>{{ timsheet.identification_no }}</td>
+                            <td>{{ timsheet.sofreco_contract_no }}</td>
+                            <td>{{ timsheet.country }}</td>
                             <td>{{ timsheet.details }}</td>
                             <td>{{ timsheet.start_date }}</td>
                             <td>{{ timsheet.end_date }}</td>
                             <td>
                                 <a href="{% url 'projects:timesheet_update' pk=timsheet.id %}"><button class="btn btn-primary btn-xs">Edit</button></a>
+                                <a href="{% url 'projects:timesheet_record_list' pk=timsheet.id %}"><button class="btn btn-primary btn-xs">View</button></a>
                             </td>
                         </tr>
                     {% endfor %}
