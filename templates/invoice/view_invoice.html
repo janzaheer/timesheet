@@ -13,203 +13,215 @@
     </ol>
 </section>
 <div class="container">
-    <div class="row">
-        <div class="col-xs-12">
-    		<div class="invoice-title">
-    			<h2>Invoice</h2><h3 class="pull-right">{{invoice.id|stringformat:"07d"}}</h3>
-    		</div>
-    		<hr>
-    		<div class="row">
-    			<div class="col-xs-6">
-    				<address>
-    				<strong>Invoice Company Name:</strong>{{invoice.invoice_company_name|title}}<br>
-                    <strong>Att Name:</strong>{{invoice.att_name|title}}<br>
-                    <strong>Address Line-1:</strong>{{invoice.address_line_1|title}}<br>
-                    <strong>Address Line-2:</strong>{{invoice.address_line_2|title}}<br>
-                    <strong>Country:</strong>{{invoice.country|title}}<br>
-
-    				</address>
-    			</div>
-    			<div class="col-xs-6 text-right">
-    				<address>
-        			<strong>Name of Consultant:</strong>{{invoice.name_of_consultant}}<br>
-        			<strong>Address:</strong>{{invoice.address}}<br>
-                    <strong>Telephone:</strong>{{invoice.telephone}}<br>
-                    <strong>Fax:</strong>{{invoice.fax}}<br>
-                    <strong>Email:</strong>{{invoice.email}}<br>
-                    <strong>TVA ID:</strong>{{invoice.tva_id}}<br>
-
-
-
-    				</address>
-    			</div>
-    		</div>
-    		<div class="row">
-    			<div class="col-xs-6">
-    				<address>
-    					<strong>Project Number:</strong>{{invoice.project.id}}<br>
-    					<strong>Project Title:</strong>{{invoice.project.name|title}}<br><br>
-                        <strong>Name of Expert:</strong>{{invoice.expert.name|title}}<br>
-                        <strong>Position of Expert:</strong>{{invoice.project.position|title}}<br>
-
-    				</address>
-    			</div>
-    			<div class="col-xs-6 text-right">
-    				<address>
-    					<strong>Order Date:</strong><br>
-    					{{invoice.date}}<br><br>
-    				</address>
-    			</div>
-    		</div>
-    	</div>
-    </div>
     
-    <div class="row">
-    	<div class="col-md-12">
-    		<div class="panel panel-default">
-    			<div class="panel-heading">
-    				<h3 class="panel-title"><strong>Order summary</strong></h3>
-    			</div>
-    			<div class="panel-body">
-    				<div class="table-responsive">
-    					<table class="table table-condensed">
-    						<thead>
-                                <tr style="border: 1px solid;">
-        							<td><strong>Description</strong></td>
-        							<td class="text-center"><strong></strong></td>
-        							<td class="text-center"><strong>N°</strong></td>
-                                    <td class="text-right"><strong>Unit Rate</strong></td>
-                                    <td class="text-right"><strong>Total</strong></td>
-
-                                </tr>
-    						</thead>
-    						<tbody>
-    							<!-- foreach ($order->lineItems as $line) or some such thing here -->
-    							<tr style="border: 1px solid;">
-    								<td>Fees</td>
-    								<td class="text-center">Worked days</td>
-    								<td class="text-center">9.00</td>
-                                    <td class="text-right">xx</td>
-                                    <td class="text-right"></td>
-                                </tr>
-                                <tr></tr><tr></tr>
-                                <tr style="border: 1px solid;">
-        							<td><strong>Description</strong></td>
-        							<td class="text-center"><strong></strong></td>
-        							<td class="text-center"><strong>N°</strong></td>
-                                    <td class="text-right"><strong>Unit Rate</strong></td>
-                                    <td class="text-right"><strong>Total</strong></td>
-
-                                </tr>
-                                <tr>
-            						<td>Per Diem</td>
-    								<td class="text-center"></td>
-    								<td class="text-center">9.00</td>
-                                    <td class="text-right">xx</td>
-                                    <td class="text-right"></td>
-
-                                </tr>
-                                <tr></tr><tr></tr><tr></tr>
-                                <tr style="border: 1px solid;">
-        							<td><strong>Description</strong></td>
-        							<td class="text-center"><strong>Details</strong></td>
-        							<td class="text-center"><strong>N°</strong></td>
-                                    <td class="text-right"><strong>Unit Rate</strong></td>
-                                    <td class="text-right"><strong>Total</strong></td>
-
-                                </tr>
-                                <tr></tr>
-    							<tr>
-    								<td class="no-line"></td>
-    								<td class="no-line"></td>
-    								<td class="no-line text-center"><strong></strong></td>
-                                    <td class="no-line text-right"></td>
-                                    <td class="no-line text-right"></td>
-
-                                </tr>
-                                <tr>
-    								<td></td>
-    								<td></td>
-    								<td><strong></strong></td>
-                                    <td></td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-    								<td></td>
-    								<td></td>
-    								<td><strong></strong></td>
-                                    <td></td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-    								<td></td>
-    								<td></td>
-    								<td><strong></strong></td>
-                                    <td></td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-    								<td></td>
-    								<td></td>
-    								<td><strong></strong></td>
-                                    <td></td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <td></td>
-    								<td></td>
-    								<td><strong></strong></td>
-                                    <td></td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-    								<td></td>
-    								<td></td>
-    								<td><strong></strong></td>
-                                    <td></td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-    								<td></td>
-    								<td></td>
-    								<td><strong></strong></td>
-                                    <td></td>
-                                    <td></td>
-
-    							</tr>
-    						</tbody>
-    					</table>
-    				</div>
-    			</div>
-            </div>
-            <div class="row">
-    			<div class="col-xs-6">
-                    <h3>Please Make PAyment to</h3>
-    				<address>
-    					<strong>Name of the Bank:</strong>{{invoice.name_of_bank}}<br>
-    					<strong>Address of the Bank:</strong>{{invoice.address_of_bank}}<br><br>
-                        <strong>Account Number:</strong>{{invoice.account_no}}<br>
-                        <strong>IBAN:</strong>{{invoice.project.iban}}<br>
-                        <strong>Swift Code:</strong>{{invoice.swift_code}}<br>
-
-
-    				</address>
-    			</div>
-    			<div class="col-xs-6 text-right">
-                    <br><br><br><br><br>
-    				<address>
-    					<strong>Consultants Signature:</strong><br><br><br>
-    					_________________________<br><br>
-    				</address>
-    			</div>
-    		</div>
-    	</div>
-    </div>
 </div>
+
+<section class="content">
+      <!-- COLOR PALETTE -->
+      <div class="box box-default color-palette-box">
+        <div class="box-header with-border">
+          <h3 class="box-title"><i class="fa fa-tag"></i> Invoice</h3>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="invoice-title">
+                        <h2>Invoice: </h2><h3> {{invoice.id|stringformat:"07d"}}</h3>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <address>
+                            <strong>Invoice Company Name:</strong> {{invoice.invoice_company_name|title}}<br>
+                            <strong>Att Name:</strong> {{invoice.att_name|title}}<br>
+                            <strong>Address Line-1:</strong> {{invoice.address_line_1|title}}<br>
+                            <strong>Address Line-2:</strong> {{invoice.address_line_2|title}}<br>
+                            <strong>Country:</strong> {{invoice.country|title}}<br>
+
+                            </address>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <address>
+                            <strong>Name of Consultant:</strong> {{invoice.name_of_consultant}}<br>
+                            <strong>Address:</strong> {{invoice.address}}<br>
+                            <strong>Telephone:</strong> {{invoice.telephone}}<br>
+                            <strong>Fax:</strong> {{invoice.fax}}<br>
+                            <strong>Email:</strong> {{invoice.email}}<br>
+                            <strong>TVA ID:</strong> {{invoice.tva_id}}<br>
+
+
+
+                            </address>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <address>
+                                <strong>Project Number:</strong> {{invoice.project.id}}<br>
+                                <strong>Project Title:</strong> {{invoice.project.name|title}}<br><br>
+                                <strong>Name of Expert:</strong> {{invoice.expert.name|title}}<br>
+                                <strong>Position of Expert:</strong> {{invoice.project.position|title}}<br>
+
+                            </address>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <address>
+                                {% comment %} <strong>Order Date:</strong><br> {% endcomment %}
+                                {% comment %} {{invoice.date}}<br><br> {% endcomment %}
+                            </address>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><strong>Order summary</strong></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr style="border: 1px solid;">
+                                            <td><strong>Description</strong></td>
+                                            <td class="text-center"><strong></strong></td>
+                                            <td class="text-center"><strong>N°</strong></td>
+                                            <td class="text-right"><strong>Unit Rate</strong></td>
+                                            <td class="text-right"><strong>Total</strong></td>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- foreach ($order->lineItems as $line) or some such thing here -->
+                                        <tr style="border: 1px solid;">
+                                            <td>Fees</td>
+                                            <td class="text-center">Worked days</td>
+                                            <td class="text-center">9.00</td>
+                                            <td class="text-right">xx</td>
+                                            <td class="text-right"></td>
+                                        </tr>
+                                        <tr></tr><tr></tr>
+                                        <tr style="border: 1px solid;">
+                                            <td><strong>Description</strong></td>
+                                            <td class="text-center"><strong></strong></td>
+                                            <td class="text-center"><strong>N°</strong></td>
+                                            <td class="text-right"><strong>Unit Rate</strong></td>
+                                            <td class="text-right"><strong>Total</strong></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Per Diem</td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center">9.00</td>
+                                            <td class="text-right">xx</td>
+                                            <td class="text-right"></td>
+
+                                        </tr>
+                                        <tr></tr><tr></tr><tr></tr>
+                                        <tr style="border: 1px solid;">
+                                            <td><strong>Description</strong></td>
+                                            <td class="text-center"><strong>Details</strong></td>
+                                            <td class="text-center"><strong>N°</strong></td>
+                                            <td class="text-right"><strong>Unit Rate</strong></td>
+                                            <td class="text-right"><strong>Total</strong></td>
+
+                                        </tr>
+                                        <tr></tr>
+                                        <tr>
+                                            <td class="no-line"></td>
+                                            <td class="no-line"></td>
+                                            <td class="no-line text-center"><strong></strong></td>
+                                            <td class="no-line text-right"></td>
+                                            <td class="no-line text-right"></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td><strong></strong></td>
+                                            <td></td>
+                                            <td></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td><strong></strong></td>
+                                            <td></td>
+                                            <td></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td><strong></strong></td>
+                                            <td></td>
+                                            <td></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td><strong></strong></td>
+                                            <td></td>
+                                            <td></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td><strong></strong></td>
+                                            <td></td>
+                                            <td></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td><strong></strong></td>
+                                            <td></td>
+                                            <td></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td><strong></strong></td>
+                                            <td></td>
+                                            <td></td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <h3>Please Make Payment to</h3>
+                            <address>
+                                <strong>Name of the Bank:</strong> {{invoice.name_of_bank}}<br>
+                                <strong>Address of the Bank:</strong> {{invoice.address_of_bank}}<br><br>
+                                <strong>Account Number:</strong> {{invoice.account_no}}<br>
+                                <strong>IBAN:</strong> {{invoice.project.iban}}<br>
+                                <strong>Swift Code:</strong> {{invoice.swift_code}}<br>
+
+
+                            </address>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <br><br><br><br><br>
+                            <address>
+                                <strong>Consultants Signature:</strong><br><br><br>
+                                _________________________<br><br>
+                            </address>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+</section>  
 {% endblock %}
