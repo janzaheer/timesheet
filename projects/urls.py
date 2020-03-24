@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import (TimesheetListView, TimesheetFormView, TimesheetUpdateView,
- TimesheetRecordListView, TimesheetReccordFormView, TimesheetRecordUpdateView)
+ TimesheetRecordListView, TimesheetReccordFormView, TimesheetRecordUpdateView, TimeSheetInvoiceView)
 
 urlpatterns = [
     path('timesheet/list', TimesheetListView.as_view(), name='timesheet_list'),
@@ -13,9 +13,14 @@ urlpatterns = [
     ),
     path('timesheet/record/<int:pk>/list', TimesheetRecordListView.as_view(), name='timesheet_record_list'),
     path('timesheet/create/<int:pk>/record', TimesheetReccordFormView.as_view(), name='timesheet_record_create'),
-     path(
+    path(
         'timesheet/<int:pk>/update/record',
         TimesheetRecordUpdateView.as_view(),
         name='timesheet_record_update'
+    ),
+    path(
+        'timesheet/<int:pk>/invoice/view',
+        TimeSheetInvoiceView.as_view(),
+        name='timesheet_invoice_view'
     )
 ]

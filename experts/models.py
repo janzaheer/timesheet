@@ -8,6 +8,12 @@ class Expert(models.Model):
     vat = models.CharField(max_length=100, blank=True, null=True)
     position = models.CharField(max_length=200, null=True, blank=True)
     category = models.CharField(max_length=200, null=True, blank=True)
+    name_of_bank = models.CharField(max_length=200, null=True, blank=True)
+    address_of_bank = models.CharField(max_length=200, null=True, blank=True)
+    account_no = models.CharField(max_length=200, null=True, blank=True)
+    iban = models.CharField(max_length=200, null=True, blank=True)
+    swift_code = models.CharField(max_length=200, null=True, blank=True)
+
 
     def __str__(self):
         return self.name

@@ -68,7 +68,7 @@ class TimesheetRecordListView(LoginRequiredMixin, ExpertUserValidateMixin, ListV
             queryset = TimeSheetRecord.objects.filter(
                 timesheet__id=self.kwargs.get('pk'))
 
-        return queryset.order_by('-id')
+        return queryset.order_by('date')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -100,8 +100,20 @@ class TimesheetRecordUpdateView(LoginRequiredMixin, ExpertUserValidateMixin, Upd
         record=form.save()
         return HttpResponseRedirect(reverse('projects:timesheet_record_list',kwargs={'pk': record.timesheet.id}))
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context = super().get_context_data(**kwargs)
-    #     context["timesheet"] = Timesheet.objects.get(id=self.kwargs.get('pk'))
-    #     return context
+
+class TimeSheetInvoiceView(LoginRequiredMixin, ExpertUserValidateMixin, TemplateView):
+    template_name = 'projects/time_sheet_view_invoice.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(
+            TimeSheetInvoiceView, self).get_context_data(**kwargs)
+
+        try:
+            invoice = TimeSheetRecord.objects.get(id=self.kwargs.get('pk'))
+        except TimeSheetRecord.DoesNotExist:
+            return Http404('Invoice does not exists in database')
+
+        context.update({
+           'invoice':invoice,
+        })
+        return context

@@ -30,7 +30,11 @@ class ExpertCreateFormView(LoginRequiredMixin, AdminUserValidateMixin, FormView)
             'category': self.request.POST.get('category'),
             'address': self.request.POST.get('address'),
             'vat': self.request.POST.get('uat'),
-        }
+            'name_of_bank': self.request.POST.get('name_of_bank'),
+            'address_of_bank': self.request.POST.get('address_of_bank'),
+            'account_no': self.request.POST.get('account_no'),
+            'iban': self.request.POST.get('iban'),
+            'swift_code': self.request.POST.get('swift_code')        }
         expertform = ExpertForm(expert_kwargs)
         if expertform.is_valid:
             expert = expertform.save()
