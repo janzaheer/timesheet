@@ -54,6 +54,7 @@
                             <td>
                                 <a href="{% url 'projects:timesheet_update' pk=timsheet.id %}"><button class="btn btn-primary btn-xs">Edit</button></a>
                                 <a href="{% url 'projects:timesheet_record_list' pk=timsheet.id %}"><button class="btn btn-primary btn-xs">View</button></a>
+                                <a href="{% url 'projects:timesheet_invoice_view' pk=timsheet.id %}"><button class="btn btn-primary btn-xs">Invoice</button></a>
                             </td>
                         </tr>
                     {% endfor %}

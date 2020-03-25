@@ -92,18 +92,6 @@
                     <li><a href="{% url 'experts:expert_list' %}"><i class="fa fa-circle-o"></i> All Experts</a></li>
                 </ul>
             </li>
-            <li class="treeview">
-              <a href="#">
-                  <i class="fa fa-user"></i> <span>Invoices</span>
-                  <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                  </span>
-              </a>
-              <ul class="treeview-menu">
-                  <li><a href="{% url 'invoice:invoice_create' %}"><i class="fa fa-circle-o"></i> Create Invoice</a></li>
-                  <li><a href="{% url 'invoice:list' %}"><i class="fa fa-circle-o"></i> All Invoices</a></li>
-              </ul>
-          </li>
         {% endif %}
         {% if request.user.user_expert %}
             <li class="header">MAIN NAVIGATION</li>

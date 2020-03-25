@@ -34,11 +34,20 @@ class Timesheet(models.Model):
     subject_of_contract = models.CharField(max_length=200, null=True, blank=True)
     service_contract_no = models.CharField(max_length=200, null=True, blank=True)
     identification_no = models.CharField(max_length=200, null=True, blank=True)
-    sofreco_contract_no = models.CharField(max_length=200, null=True, blank=True)
     country = models.CharField(max_length=200, null=True, blank=True)
     start_date = models.DateField(default=timezone.now, blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
     status = models.BooleanField(default=False)
+    invoice_company_name = models.CharField(max_length=200, null=True, blank=True)
+    att_name = models.CharField(max_length=200, null=True, blank=True)
+    address_line_1 = models.CharField(max_length=200, null=True, blank=True)
+    address_line_2 = models.CharField(max_length=200, null=True, blank=True)
+    name_of_consultant = models.CharField(max_length=200, null=True, blank=True)
+    address = models.CharField(max_length=200, null=True, blank=True)
+    telephone = models.CharField(max_length=200, null=True, blank=True)
+    fax = models.CharField(max_length=200, null=True, blank=True)
+    email = models.CharField(max_length=200, null=True, blank=True)
+    tva_id = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -79,17 +88,6 @@ class TimeSheetRecord(models.Model):
     place_of_activity = models.CharField(max_length=200, null=True, blank=True)
     activities = models.CharField(max_length=200, null=True, blank=True)
     total_month = models.CharField(max_length=200, null=True, blank=True)
-    invoice_company_name = models.CharField(max_length=200, null=True, blank=True)
-    att_name = models.CharField(max_length=200, null=True, blank=True)
-    address_line_1 = models.CharField(max_length=200, null=True, blank=True)
-    address_line_2 = models.CharField(max_length=200, null=True, blank=True)
-    name_of_consultant = models.CharField(max_length=200, null=True, blank=True)
-    address = models.CharField(max_length=200, null=True, blank=True)
-    telephone = models.CharField(max_length=200, null=True, blank=True)
-    fax = models.CharField(max_length=200, null=True, blank=True)
-    email = models.CharField(max_length=200, null=True, blank=True)
-    tva_id = models.CharField(max_length=200, null=True, blank=True)
-
     def __str__(self):
         return self.timesheet.title 
 

@@ -57,10 +57,10 @@
                     <div class="row">
                         <div class="col-xs-6">
                             <address>
-                                <strong>Project Number:</strong> {{invoice.timesheet.project.id}}<br>
-                                <strong>Project Title:</strong> {{invoice.timesheet.project.name|title}}<br><br>
-                                <strong>Name of Expert:</strong> {{invoice.timesheet.expert.name|title}}<br>
-                                <strong>Position of Expert:</strong> {{invoice.timesheet.expert.position|title}}<br>
+                                <strong>Project Number:</strong> {{invoice.project.id}}<br>
+                                <strong>Project Title:</strong> {{invoice.project.name|title}}<br><br>
+                                <strong>Name of Expert:</strong> {{invoice.expert.name|title}}<br>
+                                <strong>Position of Expert:</strong> {{invoice.expert.position|title}}<br>
 
                             </address>
                         </div>
@@ -85,114 +85,32 @@
                                 <table class="table table-condensed">
                                     <thead>
                                         <tr style="border: 1px solid;">
-                                            <td><strong>Description</strong></td>
-                                            <td class="text-center"><strong></strong></td>
-                                            <td class="text-center"><strong>N°</strong></td>
-                                            <td class="text-right"><strong>Unit Rate</strong></td>
-                                            <td class="text-right"><strong>Total</strong></td>
+                                            <th>Date</th>
+                                            <th class="text-center">Days</th>
+                                            <th class="text-center">Day Worked</th>
+                                            <th class="text-right">night spent in cairo</th>
+                                            <th class="text-right">night spent outside cairo</th>
+                                            <th class="text-right">Place of Activity</th>
+                                            <th class="text-right">Activity</th>
+
 
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <!-- foreach ($order->lineItems as $line) or some such thing here -->
+                                        
+                                        {% for record in invoice.timesheet_record.all %}
                                         <tr style="border: 1px solid;">
-                                            <td>Fees</td>
-                                            <td class="text-center">Worked days</td>
-                                            <td class="text-center">9.00</td>
-                                            <td class="text-right">xx</td>
-                                            <td class="text-right"></td>
-                                        </tr>
-                                        <tr></tr><tr></tr>
-                                        <tr style="border: 1px solid;">
-                                            <td><strong>Description</strong></td>
-                                            <td class="text-center"><strong></strong></td>
-                                            <td class="text-center"><strong>N°</strong></td>
-                                            <td class="text-right"><strong>Unit Rate</strong></td>
-                                            <td class="text-right"><strong>Total</strong></td>
+                                            <td><strong>{{record.date}}</strong></td>
+                                            <td class="text-center"><strong>{{record.day}}</strong></td>
+                                            <td class="text-center"><strong>{{record.day_worked}}</strong></td>
+                                            <td class="text-right"><strong>{{record.nights_spent_in_cairo}}</strong></td>
+                                            <td class="text-right"><strong>{{record.nights_spent_out_cairo}}</strong></td>
+                                            <td class="text-right"><strong>{{record.place_of_activity}}</strong></td>
+                                            <td class="text-right"><strong>{{record.activities}}</strong></td>
 
                                         </tr>
-                                        <tr>
-                                            <td>Per Diem</td>
-                                            <td class="text-center"></td>
-                                            <td class="text-center">9.00</td>
-                                            <td class="text-right">xx</td>
-                                            <td class="text-right"></td>
-
-                                        </tr>
-                                        <tr></tr><tr></tr><tr></tr>
-                                        <tr style="border: 1px solid;">
-                                            <td><strong>Description</strong></td>
-                                            <td class="text-center"><strong>Details</strong></td>
-                                            <td class="text-center"><strong>N°</strong></td>
-                                            <td class="text-right"><strong>Unit Rate</strong></td>
-                                            <td class="text-right"><strong>Total</strong></td>
-
-                                        </tr>
-                                        <tr></tr>
-                                        <tr>
-                                            <td class="no-line"></td>
-                                            <td class="no-line"></td>
-                                            <td class="no-line text-center"><strong></strong></td>
-                                            <td class="no-line text-right"></td>
-                                            <td class="no-line text-right"></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td><strong></strong></td>
-                                            <td></td>
-                                            <td></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td><strong></strong></td>
-                                            <td></td>
-                                            <td></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td><strong></strong></td>
-                                            <td></td>
-                                            <td></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td><strong></strong></td>
-                                            <td></td>
-                                            <td></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td><strong></strong></td>
-                                            <td></td>
-                                            <td></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td><strong></strong></td>
-                                            <td></td>
-                                            <td></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td><strong></strong></td>
-                                            <td></td>
-                                            <td></td>
-
-                                        </tr>
+                                        {% endfor %}
                                     </tbody>
                                 </table>
                             </div>
@@ -202,11 +120,11 @@
                         <div class="col-xs-6">
                             <h3>Please Make Payment to</h3>
                             <address>
-                                <strong>Name of the Bank:</strong> {{invoice.timesheet.expert.name_of_bank}}<br>
-                                <strong>Address of the Bank:</strong> {{invoice.timesheet.expert.address_of_bank}}<br><br>
-                                <strong>Account Number:</strong> {{invoice.timesheet.expert.account_no}}<br>
-                                <strong>IBAN:</strong> {{invoice.timesheet.expert.iban}}<br>
-                                <strong>Swift Code:</strong> {{invoice.timesheet.expert.swift_code}}<br>
+                                <strong>Name of the Bank:</strong> {{invoice.expert.name_of_bank}}<br>
+                                <strong>Address of the Bank:</strong> {{invoice.expert.address_of_bank}}<br><br>
+                                <strong>Account Number:</strong> {{invoice.expert.account_no}}<br>
+                                <strong>IBAN:</strong> {{invoice.expert.iban}}<br>
+                                <strong>Swift Code:</strong> {{invoice.expert.swift_code}}<br>
 
 
                             </address>

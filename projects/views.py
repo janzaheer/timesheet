@@ -9,6 +9,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Timesheet, TimeSheetRecord
 from .forms import TimesheetForm, TimesheetRecordForm
 from projects.models import Project
+from django.http import Http404
+
 
 
 class ExpertUserValidateMixin(object):
@@ -109,11 +111,15 @@ class TimeSheetInvoiceView(LoginRequiredMixin, ExpertUserValidateMixin, Template
             TimeSheetInvoiceView, self).get_context_data(**kwargs)
 
         try:
-            invoice = TimeSheetRecord.objects.get(id=self.kwargs.get('pk'))
-        except TimeSheetRecord.DoesNotExist:
+            invoice = Timesheet.objects.get(id=self.kwargs.get('pk'))
+        except Timesheet.DoesNotExist:
             return Http404('Invoice does not exists in database')
-
+        record = invoice.timesheet_record.all()
+        print(record)
+        print("______________________________________")
         context.update({
            'invoice':invoice,
+           'records': record
+
         })
         return context
