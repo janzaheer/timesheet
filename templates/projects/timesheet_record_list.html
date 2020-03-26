@@ -19,6 +19,7 @@
       <div class="box box-default color-palette-box">
         <div class="box-header with-border">
           <h3 class="box-title"><i class="fa fa-tag"></i> Expert Timesheet Record {{timesheet.title|title}}</h3>
+          <a href="{% url 'projects:timesheet_record_create' pk=timesheet.id %}" style="float: right"><button class="btn btn-danger">Create Timesheet Record</button></a>
         </div>
         <div class="box-body">
             <table id="example1" class="table table-bordered table-striped">
@@ -31,8 +32,6 @@
                         <th>Date</th>
                         <th>Day</th>
                         <th>Day Worked</th>
-                        <th>Night Spent inside Cairo</th>
-                        <th>Night Spent outside Cairo</th>
                         <th>Place of Activitry</th>
                         <th>Activities</th>
                         <th>Action</th>
@@ -48,13 +47,10 @@
                             <td>{{ record.date }}</td>
                             <td>{{ record.day }}</td>
                             <td>{{ record.day_worked }}</td>
-                            <td>{{ record.nights_spent_in_cairo }}</td>
-                            <td>{{ record.nights_spent_out_cairo }}</td>
                             <td>{{ record.place_of_activity }}</td>
                             <td>{{ record.activities }}</td>
                             <td>
                                 <a href="{% url 'projects:timesheet_record_update' pk=record.id %}"><button class="btn btn-primary btn-xs">Edit</button></a>
-                                <a href="{% url 'projects:timesheet_invoice_view' pk=record.id %}"><button class="btn btn-primary btn-xs">View Invoice</button></a>
                             </td>
                         </tr>
                     {% endfor %}

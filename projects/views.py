@@ -115,10 +115,8 @@ class TimeSheetInvoiceView(LoginRequiredMixin, ExpertUserValidateMixin, Template
         except Timesheet.DoesNotExist:
             return Http404('Invoice does not exists in database')
         record = invoice.timesheet_record.all()
-        print(record)
-        print("______________________________________")
         context.update({
-           'invoice':invoice,
+           'timesheet':invoice,
            'records': record
 
         })

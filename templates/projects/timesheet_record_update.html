@@ -9,7 +9,8 @@
     <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
     <li>Timesheet</li>
-    <li class="active">add</li>
+    <li><a href="{% url 'projects:timesheet_record_list' pk=object.timesheet.id %}" style="color:green">Records</a></li>
+    <li class="active">Update</li>
     </ol>
 </section>
 <section class="content">
@@ -46,16 +47,6 @@
                         <div class="col-lg-6">
                             <label>Day Worked</label>
                             <input type="text" class="form-control" placeholder="Add Day Worked" name="day_worked" value="{{ object.day_worked }}" required></input><br>
-                        </div>
-                        <div class="col-lg-6">
-                            <label>Nights Spent inside Cairo</label>
-                            <input type="text" class="form-control" placeholder="Add Night Spent inside Cairo" name="nights_spent_in_cairo" value={{object.nights_spent_in_cairo}} required></input><br>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <label>Nights Spent outside Cairo</label>
-                            <input type="text" class="form-control" placeholder="Add Night Spent outside Cairo" name="nights_spent_out_cairo" value={{object.nights_spent_out_cairo}} required></input><br>
                         </div>
                         <div class="col-lg-6">
                             <label>Place of activity</label>
