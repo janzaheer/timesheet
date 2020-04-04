@@ -24,7 +24,7 @@
                         <th>S/No</th>
                         <th>Project</th>
                         <th>Timesheet Title</th>
-                        <th>admin</th>
+                        <th>Admin</th>
                         <th>Subject of Contract</th>
                         <th>Service Contract No.</th>
                         <th>Identification No.</th>
@@ -51,7 +51,7 @@
                             <td>{{ timsheet.end_date }}</td>
                             <td>
                                 <a href="{% url 'projects:timesheet_update' pk=timsheet.id %}"><button class="btn btn-primary btn-xs">Edit</button></a>
-                                <a href="{% url 'projects:timesheet_record_list' pk=timsheet.id %}"><button class="btn btn-success btn-xs">View</button></a>
+                                <a href="{% url 'projects:timesheet_record_edit_all' timesheet_id=timsheet.id %}"><button class="btn btn-success btn-xs">View</button></a>
                                 <a href="{% url 'projects:timesheet_invoice_view' pk=timsheet.id %}"><button class="btn btn-danger btn-xs">Invoice</button></a>
                             </td>
                         </tr>

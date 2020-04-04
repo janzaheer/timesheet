@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="content-header">
+    <h1>
+    Timesheet
+    <small>Timesheet Management System</small>
+    </h1>
+    <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li class="active">Timesheet</li>
+    </ol>
+</section>
+<section class="content">
+      <!-- COLOR PALETTE -->
+      <div class="box box-default color-palette-box">
+        <div class="box-header with-border">
+          <h3 class="box-title"><i class="fa fa-tag"></i> {{ timesheet.title|title }}</h3>
+        </div>
+        <div class="box-body">
+            <form action="{% url 'projects:timesheet_record_save_all' %}" method="POST">
+            {% csrf_token %}
+                <div class="row">
+                    <div class="col-lg-4">
+                        <h5><small>Project:</small> <strong>{{ timesheet.project }}</strong></h5>
+                        <h5><small>Admin:</small> <strong>{{ timesheet.project.admin }}</strong></h5>
+                    </div>
+                    <div class="col-lg-4">
+                        <h5><small>Expert:</small> <strong>{{ timesheet.expert }}</strong></h5>
+                        <h5><small>Timesheet</small> <strong>{{ timesheet.title }}</strong></h5>
+                    </div>
+                    <div class="col-lg-4 text-right">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+                <hr>
+                <table id="example1" class="table table-bordered table-striped table-fixed" style="table-layout: fixed" >
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Day Worked</th>
+                            <th>Place of Activity</th>
+                            <th>Activities</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for record in records %}
+                            <tr>
+                                <td><input type="date" name="date" class="form form-control" value="{{record.date|date:'Y-m-d'}}"><input type="text" value="{{record.id}}" name="ids" hidden></td>
+                                <td><input type="text" name="day_worked" class="form form-control" value="{{record.day_worked|floatformat:-2 }}"></td>
+                                <td><input type="text" name="place_of_activity" class="form form-control" value="{{record.place_of_activity|default:"" }}"></td>
+                                <td><input type="text" name="activities" class="form form-control" value="{{record.activities|default:"" }}"></td>
+                                <td><textarea type="text" name="details" class="form-control" rows="1">{{record.details|default:"" }}</textarea></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="col-lg-12 text-center">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+        
+            </form>
+        
+        
+        </div>
+      </div>
+</section>     
+{% endblock %}

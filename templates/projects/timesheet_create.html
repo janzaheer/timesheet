@@ -134,6 +134,26 @@
                             <input type="text" class="form-control" placeholder="Add Tva Id" name="tva_id" required></input><br>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>Select Month</label>
+                            <select class="form-control" name="selected_month" required>
+                                <option></option>
+                                {% for month in months %}
+                                    <option value="{{month.0}}">{{month.1}}</option>
+                                {% endfor %}
+                            </select><br>
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Select Year</label>
+                            <select class="form-control" name="selected_year" required>
+                                <option></option>
+                                {% for year in years %}
+                                    <option value="{{year}}">{{year}}</option>
+                                {% endfor %}
+                            </select><br>
+                        </div>
+                    </div>
                     <input type="hidden" name="expert" value="{{ request.user.user_expert.expert.id }}"></input>
                     <div class="row">
                         <div class="col-lg-12 text-right">

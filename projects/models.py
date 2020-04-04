@@ -71,8 +71,8 @@ class TimeSheetRecord(models.Model):
         (DAY_SUNDAY, 'sunday'),
     )
     timesheet = models.ForeignKey(
-    Timesheet, related_name='timesheet_record',
-    on_delete=models.SET_NULL, blank=True, null=True
+        Timesheet, related_name='timesheet_record',
+        on_delete=models.SET_NULL, blank=True, null=True
     )
     date = models.DateField(default=timezone.now, blank=True, null=True)
     day = models.CharField(
@@ -85,6 +85,7 @@ class TimeSheetRecord(models.Model):
                                             default=0,blank=True, null=True)
     nights_spent_out_cairo = models.DecimalField(max_digits=65, decimal_places=2,
                                             default=0,blank=True, null=True)
+    details = models.TextField(max_length=500, blank=True, null=True)
     place_of_activity = models.CharField(max_length=200, null=True, blank=True)
     activities = models.CharField(max_length=200, null=True, blank=True)
     total_month = models.CharField(max_length=200, null=True, blank=True)
