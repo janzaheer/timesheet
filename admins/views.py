@@ -7,6 +7,7 @@ from django.views.generic import (
 
 from projects.models import Project
 from projects.forms import ProjectForm
+from projects.models import Expert
 
 
 class AdminUserValidateMixin(object):
@@ -36,16 +37,17 @@ class AdminProjectFormView(LoginRequiredMixin, AdminUserValidateMixin, FormView)
 
     def form_valid(self, form):
         project = form.save()
-        if self.request.POST.get('status_set') == 'True':
-            project.status = True
-        elif self.request.POST.get('status_set') == 'False':
-            project.status = False
         project.save()
 
         return HttpResponseRedirect(reverse('admins:index'))
 
     def form_invalid(self, form):
         return super().form_invalid(form)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["experts"] = Expert.objects.all()
+        return context
 
 
 class AdminProjectUpdateView(LoginRequiredMixin, AdminUserValidateMixin, UpdateView):
@@ -54,16 +56,17 @@ class AdminProjectUpdateView(LoginRequiredMixin, AdminUserValidateMixin, UpdateV
     model = Project
 
     def form_valid(self, form):
-        if self.request.POST.get('status_set') == 'True':
-            project.status = True
-        elif self.request.POST.get('status_set') == 'False':
-            project.status = False
-        project.save()
-
+        project = form.save()
         return HttpResponseRedirect(reverse('admins:index'))
     
     def form_invalid(self, form):
         return super().form_invalid(form)
+
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["experts"] = Expert.objects.all()
+        return context
 
 
 class AdminProjectDeleteView(LoginRequiredMixin, AdminUserValidateMixin, DeleteView):

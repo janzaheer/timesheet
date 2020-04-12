@@ -22,11 +22,8 @@
                 <thead>
                     <tr>
                         <th>S/No</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Status</th>
+                        <th>Project</th>
+                        <th>Expert</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -35,10 +32,7 @@
                         <tr>
                             <td>{{ forloop.counter }}</td>
                             <td>{{ project.name|title }}</td>
-                            <td>{{ project.description }}</td>
-                            <td>{{ project.start_date }}</td>
-                            <td>{{ project.end_date }}</td>
-                            <td>{{ project.status }}</td>
+                            <td>{{ project.expert.name|title}}</td>
                             <td>
                                 <a href="{% url 'admins:admin_project_update' pk=project.id %}"><button class="btn btn-primary btn-xs">Edit</button></a>
                                 <a href="{% url 'admins:admin_project_delete' pk=project.id %}"><button class="btn btn-danger btn-xs">Delete</button></a>

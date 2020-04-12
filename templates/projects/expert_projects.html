@@ -8,14 +8,14 @@
     </h1>
     <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li class="active">Timesheet</li>
+    <li class="active">Dashboard</li>
     </ol>
 </section>
 <section class="content">
       <!-- COLOR PALETTE -->
       <div class="box box-default color-palette-box">
         <div class="box-header with-border">
-          <h3 class="box-title"><i class="fa fa-tag"></i> Expert Timesheets</h3>
+          <h3 class="box-title"><i class="fa fa-tag"></i> {{ request.user.user_expert.expert.name|title }} Projects</h3>
         </div>
         <div class="box-body">
             <table id="example1" class="table table-bordered table-striped">
@@ -23,21 +23,22 @@
                     <tr>
                         <th>S/No</th>
                         <th>Project</th>
-                        <th>Timesheet Title</th>
+                        <th>Project Details</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for timsheet in object_list %}
+                    {% for project in object_list %}
                         <tr>
                             <td>{{ forloop.counter }}</td>
-                            <td>{{ timsheet.project.name|title }}</td>
-                            <td>{{ timsheet.title|title }}</td>
+                            <td>{{ project.name|title }}</td>
+                            <td>{{ project.description }}</td>
                             <td>
-                                <a href="{% url 'projects:timesheet_record_edit_all' timesheet_id=timsheet.id %}"><button class="btn btn-success btn-xs">View</button></a>
-                                <a href="{% url 'projects:timesheet_invoice_view' pk=timsheet.id %}"><button class="btn btn-danger btn-xs">Invoice</button></a>
+                                <a href="{% url 'projects:timesheet_create' project_id=project.id %}" title="Create Timesheet"><button class="btn btn-primary btn-xs">Create</button></a>
+                                <a href="{% url 'projects:project_timesheets' project_id=project.id %}" title="All Timesheets"><button class="btn btn-success btn-xs">Timesheets</button></a>
                             </td>
                         </tr>
+
                     {% endfor %}
                 </tbody>
               </table>

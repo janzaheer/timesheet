@@ -34,8 +34,8 @@
                             <address>
                                 <strong>Project Number:</strong> {{timesheet.project.id}}<br>
                                 <strong>Project Title:</strong> {{timesheet.project.name|title}}<br><br>
-                                <strong>Name of Expert:</strong> {{timesheet.expert.name|title}}<br>
-                                <strong>Position of Expert:</strong> {{timesheet.expert.position|title}}<br><br>
+                                <strong>Name of Expert:</strong> {{timesheet.project.expert.name|title}}<br>
+                                <strong>Position of Expert:</strong> {{timesheet.project.expert.position|title}}<br><br>
                                 <strong>Timesheet Title:</strong> {{timesheet.title|title}}<br>
                                 <strong>Timesheet Detailst:</strong> {{timesheet.details|title}}<br><br>
                                 <strong>Invoice #</strong> {{timesheet.id|stringformat:"07d"}}<br>
@@ -80,11 +80,26 @@
                                             <td><strong>{{record.date}}</strong></td>
                                             <td class="text-left"><strong>{{record.day}}</strong></td>
                                             <td class="text-left"><strong>{{record.day_worked|floatformat:-2}}</strong></td>
-                                            <td class="text-left"><strong>{{record.place_of_activity}}</strong></td>
-                                            <td class="text-left"><strong>{{record.activities}}</strong></td>
+                                            <td class="text-left"><strong>{{record.place_of_activity|default:'-'}}</strong></td>
+                                            <td class="text-left"><strong>{{record.activities|default:'-'}}</strong></td>
 
                                         </tr>
                                         {% endfor %}
+                                        <tr>
+                                            <td></td>
+                                            <td class="text-left"></td>
+                                            <td class="text-left"></td>
+                                            <td class="text-left"></td>
+                                            <td class="text-left"></td>
+
+                                        </tr>
+                                        <tr style="border: 1px solid;">
+                                            <td></td>
+                                            <td> Total Days Worked: <strong>{{total_worked_days}}</strong></td>
+                                            <td></td>
+                                            <td> Total Expert Perdiem: <strong>{{ total_expert_perdiem }}</strong></td>
+                                            <td></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -94,11 +109,11 @@
                         <div class="col-xs-6">
                             <h3>Please Make Payment to</h3>
                             <address>
-                                <strong>Name of the Bank:</strong> {{timesheet.expert.name_of_bank}}<br>
-                                <strong>Address of the Bank:</strong> {{timesheet.expert.address_of_bank}}<br><br>
-                                <strong>Account Number:</strong> {{timesheet.expert.account_no}}<br>
-                                <strong>IBAN:</strong> {{timesheet.expert.iban}}<br>
-                                <strong>Swift Code:</strong> {{timesheet.expert.swift_code}}<br>
+                                <strong>Name of the Bank:</strong> {{timesheet.project.expert.name_of_bank}}<br>
+                                <strong>Address of the Bank:</strong> {{timesheet.project.expert.address_of_bank}}<br><br>
+                                <strong>Account Number:</strong> {{timesheet.project.expert.account_no}}<br>
+                                <strong>IBAN:</strong> {{timesheet.project.expert.iban}}<br>
+                                <strong>Swift Code:</strong> {{timesheet.project.expert.swift_code}}<br>
 
 
                             </address>

@@ -95,20 +95,14 @@
         {% endif %}
         {% if request.user.user_expert %}
             <li class="header">MAIN NAVIGATION</li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-dashboard"></i> <span>Timesheet</span>
-                    <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{% url 'projects:timesheet_create' %}"><i class="fa fa-circle-o"></i> Create Timesheet</a></li>
-                    <li><a href="{% url 'projects:timesheet_list' %}"><i class="fa fa-circle-o"></i> All Timesheet</a></li>
-                </ul>
-            </li>
+            <li><a href="{% url 'experts:expert_projects' %}"><i class="fa fa-tasks"></i> Expert Projects</a></li>
+            {% comment %} <li><a href="{% url 'projects:timesheet_list' %}"><i class="fa fa-dashboard"></i>Timesheets</a></li> {% endcomment %}
+            
         {% endif %}
         <li class="header">User Settings</li>
+        {% if request.user.user_expert %}
+            <li><a href="{% url 'experts:experts_update' pk=request.user.user_expert.expert.id %}"><i class="fa fa-user"></i> Edit Profile</a></li>
+        {% endif %}
         <li><a href="{% url 'common:logout' %}"><i class="fa fa-circle-o text-red"></i> <span>Logout</span></a></li>
       </ul>
     </section>
