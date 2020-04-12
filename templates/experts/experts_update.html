@@ -24,36 +24,36 @@
                 <div class="col-lg-8 col-lg-offset-2">
                     <div class="row">
                         <div class="col-lg-12">
-                            <label>Full Name</label>
-                            <input type="text" class="form-control" placeholder="Full Name" name="name" value={{ object.name|title }} required></input><br>
+                            <label>Name</label>
+                            <input type="text" class="form-control" value="{{object.name}}" name="name" required></input><br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>Sur Name</label>
+                            <input type="text" class="form-control" value="{{object.sur_name}}" name="sur_name" required></input><br>
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Vat Expert</label>
+                            <input type="text" class="form-control" value="{{object.vat_expert}}" name="vat_expert" required></input><br>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <label>Mobile Number</label>
-                            <input type="text" class="form-control" placeholder="Mobile Number" name="mobile" value={{ object.mobile }}></input><br>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <label>Position</label>
-                            <input type="text" class="form-control" placeholder="Position" name="position" value={{ object.position }}></input><br>
-                        </div>
-                        <div class="col-lg-6">
-                            <label>Category</label>
-                            <input type="text" class="form-control" placeholder="Category" name="category" value={{ objecct.category }}></input><br>
+                            <label>Email Expert</label>
+                            <input type="text" class="form-control" value="{{object.email_expert}}" name="email_expert"></input><br>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <label>Address</label>
-                            <textarea rows="4" class="form-control" placeholder="Address" name="address" value={{ object.address }}>{{ object.address }}</textarea><br>
+                            <textarea rows="4" class="form-control" placeholder="Address" name="address">{{object.address}}</textarea><br>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <label>VAT</label>
-                            <input type="text" class="form-control" placeholder="VAT" name="vat" value={{ object.vat }}></input><br>
+                            <label>Mobile</label>
+                            <input type="text" class="form-control" value="{{object.mobile}}" name="mobile"></input><br>
                         </div>
                     </div>
                     <div class="row">

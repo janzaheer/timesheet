@@ -23,6 +23,7 @@
                     <tr>
                         <th>S/No</th>
                         <th>Name</th>
+                        <th>Expert</th>
                         <th>Description</th>
                         <th>Start Date</th>
                         <th>End Date</th>
@@ -35,6 +36,7 @@
                         <tr>
                             <td>{{ forloop.counter }}</td>
                             <td>{{ project.name|title }}</td>
+                            <td>{{ project.expert.name|title}}</td>
                             <td>{{ project.description }}</td>
                             <td>{{ project.start_date }}</td>
                             <td>{{ project.end_date }}</td>

@@ -7,6 +7,7 @@ from django.views.generic import (
 
 from projects.models import Project
 from projects.forms import ProjectForm
+from projects.models import Expert
 
 
 class AdminUserValidateMixin(object):
@@ -46,6 +47,11 @@ class AdminProjectFormView(LoginRequiredMixin, AdminUserValidateMixin, FormView)
 
     def form_invalid(self, form):
         return super().form_invalid(form)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["experts"] = Expert.objects.all()
+        return context
 
 
 class AdminProjectUpdateView(LoginRequiredMixin, AdminUserValidateMixin, UpdateView):
@@ -64,6 +70,12 @@ class AdminProjectUpdateView(LoginRequiredMixin, AdminUserValidateMixin, UpdateV
     
     def form_invalid(self, form):
         return super().form_invalid(form)
+
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["experts"] = Expert.objects.all()
+        return context
 
 
 class AdminProjectDeleteView(LoginRequiredMixin, AdminUserValidateMixin, DeleteView):

@@ -26,39 +26,99 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <label>Project Name</label>
-                            <input type="text" class="form-control" placeholder="Add Project Name" name="name" value="{{ object.name|title }}"></input><br>
+                        <label>Select Expert</label>
+                        <select class="form-control" name="expert" required>
+                                <option value="{{object.expert.id}}">{{object.expert.name}}</option>
+                            {% for expert in experts %}
+                                <option value='{{ expert.id }}'>{{ expert.name|title }}</option>
+                            {% endfor %}
+                        </select><br>
+                    </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Project Name</label>
+                            <input type="text" class="form-control" value="{{object.name}}" name="name" required></input><br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Service Number Contract</label>
+                            <input type="text" class="form-control" value="{{object.service_number_contract}}" name="service_number_contract" required></input><br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Internal Reference</label>
+                            <input type="text" class="form-control" value="{{object.internal_reference}}" name="internal_reference" required></input><br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Country</label>
+                            <input type="text" class="form-control" value="{{object.country}}" name="country" required></input><br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Name of Company</label>
+                            <input type="text" class="form-control" value="{{object.name_of_company}}" name="name_of_company" required></input><br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Attention Mails</label>
+                            <input type="text" class="form-control" value="{{object.attention_mails}}" name="attention_mails" required></input><br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Telephone Company</label>
+                            <input type="text" class="form-control" value="{{object.telephone_company}}" name="telephone_company" required></input><br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>VAT Company</label>
+                            <input type="text" class="form-control" value="{{object.vat_company}}" name="vat_company" required></input><br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Company Address</label>
+                            <textarea class="form-control" name="address_company" rows="4">{{object.address_company}}</textarea><br>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <label>Project Description</label>
-                            <textarea class="form-control" placeholder="Add Project Description" name="description" rows="4" value="{{ object.description }}">{{ object.description }}</textarea><br>
+                            <textarea class="form-control" name="description" rows="4">{{object.description}}</textarea><br>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-6">
                             <label>Project Start Date</label>
-                            <input type="date" class="form-control" name="start_date" value="{{ object.start_date|date:'Y-m-d' }}"></input><br>
+                            <input type="date" class="form-control" name="start_date"></input><br>
                         </div>
                         <div class="col-lg-6">
                             <label>Project End Date</label>
-                            <input type="date" class="form-control" name="end_date" value="{{ object.end_date|date:'Y-m-d' }}"></input><br>
+                            <input type="date" class="form-control" name="end_date"></input><br>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <label>Project Status</label>
                             <select class="form-control" name='status_set'>
-                                <option></option>
-                                <option value="{{ True }}" {% if object.status == True %}selected="selected"{% endif %}>True</option>
-                                <option value="{{ False }}" {% if object.status == False %}selected="selected"{% endif %}>False</option>
+                                <option value="{{object.status_set}}"></option>
+                                <option value="{{ True }}">True</option>
+                                <option value="{{ False }}">False</option>
                             </select><br>
                         </div>
                     </div>
                     <input type="hidden" name="admin" value="{{ request.user.user_admin.admin.id }}"></input>
                     <div class="row">
                         <div class="col-lg-12 text-right">
-                            <button type="submit" class="btn btn-primary">Update</button><br>
+                            <button type="submit" class="btn btn-primary">Save</button><br>
                         </div>
                     </div>
                 </div>

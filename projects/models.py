@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from experts.models import Expert
 
 
 class Project(models.Model):
@@ -9,6 +10,19 @@ class Project(models.Model):
         related_name='admin_projects',
         on_delete=models.SET_NULL
     )
+    expert = models.ForeignKey(
+        Expert,  blank=True, null=True,
+        related_name='expert_project',
+        on_delete=models.SET_NULL
+    )
+    service_number_contract = models.CharField(max_length=200, null=True, blank=True)
+    internal_reference = models.CharField(max_length=200, null=True, blank=True)
+    country = models.CharField(max_length=200, null=True, blank=True)
+    name_of_company = models.CharField(max_length=200, null=True, blank=True)
+    attention_mails = models.CharField(max_length=200, null=True, blank=True)
+    address_company = models.CharField(max_length=200, null=True, blank=True)
+    telephone_company = models.CharField(max_length=200, null=True, blank=True)
+    vat_company = models.CharField(max_length=200, null=True, blank=True)
     description = models.TextField(max_length=1000, blank=True, null=True)
     start_date = models.DateField(default=timezone.now, blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
