@@ -24,9 +24,7 @@ class Project(models.Model):
     telephone_company = models.CharField(max_length=200, null=True, blank=True)
     vat_company = models.CharField(max_length=200, null=True, blank=True)
     description = models.TextField(max_length=1000, blank=True, null=True)
-    start_date = models.DateField(default=timezone.now, blank=True, null=True)
-    end_date = models.DateField(blank=True, null=True)
-    status = models.BooleanField(default=False)
+    date_added = models.DateField(default=timezone.now, blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -37,31 +35,12 @@ class Timesheet(models.Model):
         Project, related_name='project_timesheets',
         on_delete=models.SET_NULL, blank=True, null=True
     )
-    expert = models.ForeignKey(
-        'experts.Expert', related_name='expert_timesheet',
-        on_delete=models.SET_NULL, blank=True, null=True
-    )
     title = models.CharField(max_length=200)
     details = models.TextField(
         max_length=1000, blank=True, null=True
     )
-    subject_of_contract = models.CharField(max_length=200, null=True, blank=True)
-    service_contract_no = models.CharField(max_length=200, null=True, blank=True)
-    identification_no = models.CharField(max_length=200, null=True, blank=True)
-    country = models.CharField(max_length=200, null=True, blank=True)
-    start_date = models.DateField(default=timezone.now, blank=True, null=True)
-    end_date = models.DateField(blank=True, null=True)
-    status = models.BooleanField(default=False)
-    invoice_company_name = models.CharField(max_length=200, null=True, blank=True)
-    att_name = models.CharField(max_length=200, null=True, blank=True)
-    address_line_1 = models.CharField(max_length=200, null=True, blank=True)
-    address_line_2 = models.CharField(max_length=200, null=True, blank=True)
-    name_of_consultant = models.CharField(max_length=200, null=True, blank=True)
-    address = models.CharField(max_length=200, null=True, blank=True)
-    telephone = models.CharField(max_length=200, null=True, blank=True)
-    fax = models.CharField(max_length=200, null=True, blank=True)
-    email = models.CharField(max_length=200, null=True, blank=True)
-    tva_id = models.CharField(max_length=200, null=True, blank=True)
+    month = models.CharField(max_length=20, blank=True, null=True)
+    year = models.CharField(max_length=20, blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -92,14 +71,12 @@ class TimeSheetRecord(models.Model):
     day = models.CharField(
         max_length=200, choices=DAY, default=DAY_MONDAY,
         blank=True, null=True)
-    day_worked = models.DecimalField(max_digits=65, decimal_places=2,
+    day_worked = models.DecimalField(max_digits=4, decimal_places=2,
                                     default=0,blank=True, null=True
                                     )
-    nights_spent_in_cairo = models.DecimalField(max_digits=65, decimal_places=2,
-                                            default=0,blank=True, null=True)
-    nights_spent_out_cairo = models.DecimalField(max_digits=65, decimal_places=2,
-                                            default=0,blank=True, null=True)
-    details = models.TextField(max_length=500, blank=True, null=True)
+    perdiem = models.DecimalField(max_digits=6, decimal_places=2,
+                                    default=0,blank=True, null=True
+                                    )
     place_of_activity = models.CharField(max_length=200, null=True, blank=True)
     activities = models.CharField(max_length=200, null=True, blank=True)
     total_month = models.CharField(max_length=200, null=True, blank=True)

@@ -37,10 +37,6 @@ class AdminProjectFormView(LoginRequiredMixin, AdminUserValidateMixin, FormView)
 
     def form_valid(self, form):
         project = form.save()
-        if self.request.POST.get('status_set') == 'True':
-            project.status = True
-        elif self.request.POST.get('status_set') == 'False':
-            project.status = False
         project.save()
 
         return HttpResponseRedirect(reverse('admins:index'))
@@ -60,12 +56,7 @@ class AdminProjectUpdateView(LoginRequiredMixin, AdminUserValidateMixin, UpdateV
     model = Project
 
     def form_valid(self, form):
-        if self.request.POST.get('status_set') == 'True':
-            project.status = True
-        elif self.request.POST.get('status_set') == 'False':
-            project.status = False
-        project.save()
-
+        project = form.save()
         return HttpResponseRedirect(reverse('admins:index'))
     
     def form_invalid(self, form):

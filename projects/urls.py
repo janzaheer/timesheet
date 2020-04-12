@@ -2,12 +2,14 @@ from django.urls import path
 
 from .views import (TimesheetListView, TimesheetFormView, TimesheetUpdateView,
     TimesheetRecordListView, TimesheetReccordFormView, TimesheetRecordUpdateView,
-    TimeSheetInvoiceView, TimesheetRecordAllEditView, TimesheetRecordAllSaveView
+    TimeSheetInvoiceView, TimesheetRecordAllEditView, TimesheetRecordAllSaveView,
+    ProjectTimesheets
 )
 
 urlpatterns = [
     path('timesheet/list', TimesheetListView.as_view(), name='timesheet_list'),
-    path('timesheet/create', TimesheetFormView.as_view(), name='timesheet_create'),
+    path('<int:project_id>/timesheet', ProjectTimesheets.as_view(), name='project_timesheets'),
+    path('<int:project_id>/timesheet/create', TimesheetFormView.as_view(), name='timesheet_create'),
     path(
         'timesheet/<int:pk>/update',
         TimesheetUpdateView.as_view(),

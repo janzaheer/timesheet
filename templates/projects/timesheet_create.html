@@ -20,18 +20,14 @@
         </div>
         <div class="box-body">
             {{ form.errors }}
-            <form action="{% url 'projects:timesheet_create' %}" method="POST"><br>
+            <form action="{% url 'projects:timesheet_create' project_id=project.id %}" method="POST"><br>
                 {% csrf_token %}
                 <div class="col-lg-8 col-lg-offset-2">
                     <div class="row">
                         <div class="col-lg-12">
-                            <label>Select Project</label>
-                            <select class="form-control" name="project" required>
-                                    <option></option>
-                                {% for project in projects%}
-                                    <option value='{{ project.id }}'>{{ project.name|title }}</option>
-                                {% endfor %}
-                            </select><br>
+                            <label>Project</label>
+                            <input type="text" class="form-control" placeholder="Project" name="project_name" value="{{ project.name|title }}" readonly></input><br>
+                            <input type="hidden" class="form-control" placeholder="Project" name="project" value="{{ project.id|title }}" readonly></input><br>
                         </div>
                     </div>
                     <div class="row">
@@ -42,96 +38,8 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <label>Subject of Contract</label>
-                            <input type="text" class="form-control" placeholder="Add Subject of Contract" name="subject_of_contract" required></input><br>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <label>Service Contract No.</label>
-                            <input type="text" class="form-control" placeholder="Add Service Contract No." name="service_contract_no" required></input><br>
-                        </div>
-                        <div class="col-lg-6">
-                            <label>Identification No.</label>
-                            <input type="text" class="form-control" placeholder="Add Identification No." name="identification_no" required></input><br>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <label>Country</label>
-                            <input type="text" class="form-control" placeholder="Add Country" name="country" required></input><br>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <label>Timesheet Details</label>
+                            <label>Timesheet Details (optional)</label>
                             <textarea class="form-control" placeholder="Add Timesheet Details" name="details" rows="4"></textarea><br>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <label>Timesheer Start Date</label>
-                            <input type="date" class="form-control" name="start_date"></input><br>
-                        </div>
-                        <div class="col-lg-6">
-                            <label>Timesheet End Date</label>
-                            <input type="date" class="form-control" name="end_date"></input><br>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <label>Invoice Company Name</label>
-                            <input type="text" class="form-control" placeholder="Add Invoice Comapany Name" name="invoice_company_name" required></input><br>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <label>Att Name</label>
-                            <input type="text" class="form-control" placeholder="Add Att Name" name="att_name" required></input><br>
-                        </div>
-                        <div class="col-lg-6">
-                            <label>Address Line 1</label>
-                            <input type="text" class="form-control" placeholder="Add Address Line 1" name="address_line_1" required></input><br>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <label>Address Line 2</label>
-                            <input type="text" class="form-control" placeholder="Add Address Line 2" name="address_line_2" required></input><br>
-                        </div>
-                        <div class="col-lg-6">
-                            <label>Country</label>
-                            <input type="text" class="form-control" placeholder="Add Country" name="country" required></input><br>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <label>Name of Consultant</label>
-                            <input type="text" class="form-control" placeholder="Add Name of Consultant" name="name_of_consultant" required></input><br>
-                        </div>
-                        <div class="col-lg-6">
-                            <label>Address</label>
-                            <input type="text" class="form-control" placeholder="Add Address" name="address" required></input><br>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <label>Telephone</label>
-                            <input type="text" class="form-control" placeholder="Add Telephone" name="telephone" required></input><br>
-                        </div>
-                        <div class="col-lg-6">
-                            <label>Fax</label>
-                            <input type="text" class="form-control" placeholder="Add Fax" name="fax" required></input><br>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <label>Email</label>
-                            <input type="text" class="form-control" placeholder="Add Email" name="email" required></input><br>
-                        </div>
-                        <div class="col-lg-6">
-                            <label>Tva Id</label>
-                            <input type="text" class="form-control" placeholder="Add Tva Id" name="tva_id" required></input><br>
                         </div>
                     </div>
                     <div class="row">

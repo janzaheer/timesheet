@@ -30,17 +30,17 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-6">
-                            <label>Sur Name</label>
+                            <label>Surname</label>
                             <input type="text" class="form-control" value="{{object.sur_name}}" name="sur_name" required></input><br>
                         </div>
                         <div class="col-lg-6">
-                            <label>Vat Expert</label>
+                            <label>Vat</label>
                             <input type="text" class="form-control" value="{{object.vat_expert}}" name="vat_expert" required></input><br>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <label>Email Expert</label>
+                            <label>Email</label>
                             <input type="text" class="form-control" value="{{object.email_expert}}" name="email_expert"></input><br>
                         </div>
                     </div>
@@ -58,11 +58,11 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-6">
-                            <label>Name of Bank</label>
+                            <label>Bank Name</label>
                             <input type="text" class="form-control" placeholder="Add Name of Bank" name="name_of_bank" value={{ object.name_of_bank}} required></input><br>
                         </div>
                         <div class="col-lg-6">
-                            <label>Addressof Bank</label>
+                            <label>Bank Address</label>
                             <input type="text" class="form-control" placeholder="Add Address of Bank" name="address_of_bank" value={{ object.address_of_bank}} required></input><br>
                         </div>
                     </div>
@@ -78,6 +78,16 @@
                         <div class="col-lg-4">
                             <label>Swift Code</label>
                             <input type="text" class="form-control" placeholder="Add Swift Code" name="swift_code" value={{ object.swift_code}} required></input><br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>Daily Fee</label>
+                            <input type="text" class="form-control" placeholder="Add Daily Fee" name="daily_fee" value="{{object.daily_fee|floatformat:-2}}"></input><br>
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Perdiem</label>
+                            <input type="text" class="form-control" placeholder="Add Perdiem" name="perdiem" value="{{object.perdiem|floatformat:-2}}"></input><br>
                         </div>
                     </div>
                     <div class="row">

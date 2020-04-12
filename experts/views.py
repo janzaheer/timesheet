@@ -6,9 +6,11 @@ from django.views.generic import (
 from django.contrib.auth import forms as auth_forms
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from projects.models import Project
 from .models import Expert, ExpertUser
 from .forms import ExpertForm
 from admins.views import AdminUserValidateMixin
+
 
 
 class ExpertsListView(LoginRequiredMixin, AdminUserValidateMixin, ListView):
@@ -45,7 +47,7 @@ class ExpertCreateFormView(LoginRequiredMixin, AdminUserValidateMixin, FormView)
         return HttpResponseRedirect(reverse('experts:expert_list'))
 
 
-class ExpertUpdateView(LoginRequiredMixin, AdminUserValidateMixin, UpdateView):
+class ExpertUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'experts/experts_update.html'
     form_class = ExpertForm
     model =  Expert
@@ -53,3 +55,14 @@ class ExpertUpdateView(LoginRequiredMixin, AdminUserValidateMixin, UpdateView):
     def form_valid(self, form):
         expert = form.save()
         return HttpResponseRedirect(reverse('experts:expert_list'))
+
+
+class ExpertProjects(LoginRequiredMixin, ListView):
+    model = Project
+    paginate_by = 100
+    template_name = 'projects/expert_projects.html'
+    
+    def get_queryset(self):
+        return Project.objects.filter(
+            expert__id=self.request.user.user_expert.expert.id
+            ).order_by('name')

@@ -95,26 +95,6 @@
                             <textarea class="form-control" placeholder="Add Project Description" name="description" rows="4"></textarea><br>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <label>Project Start Date</label>
-                            <input type="date" class="form-control" name="start_date"></input><br>
-                        </div>
-                        <div class="col-lg-6">
-                            <label>Project End Date</label>
-                            <input type="date" class="form-control" name="end_date"></input><br>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <label>Project Status</label>
-                            <select class="form-control" name='status_set'>
-                                <option></option>
-                                <option value="{{ True }}">True</option>
-                                <option value="{{ False }}">False</option>
-                            </select><br>
-                        </div>
-                    </div>
                     <input type="hidden" name="admin" value="{{ request.user.user_admin.admin.id }}"></input>
                     <div class="row">
                         <div class="col-lg-12 text-right">
