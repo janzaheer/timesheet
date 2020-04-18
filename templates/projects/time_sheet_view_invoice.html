@@ -7,9 +7,8 @@
     <small>Timesheet Management System</small>
     </h1>
     <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li>Invoice</li>
-    <li class="active">View</li>
+        <li><a href="#"><button style="color:green" onclick="PrintInvoice('print-invoice')">Print Invoice</button></a></li>
+        <li><a href="#"><button style="color:green">Save CSV</button></a></li>
     </ol>
 </section>
 <div class="container">
@@ -18,7 +17,7 @@
 
 <section class="content">
       <!-- COLOR PALETTE -->
-      <div class="box box-default color-palette-box">
+      <div class="box box-default color-palette-box" id="print-invoice">
         <div class="box-header with-border">
           <h3 class="box-title"><i class="fa fa-tag"></i> Invoice</h3>
         </div>
@@ -26,91 +25,83 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="invoice-title text-center">
-                        <h2>Invoice: </h2><h3> {{invoice.id|stringformat:"07d"}}</h3>
+                        <h2>Invoice</h2>
                     </div>
                     <hr>
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <address>
-                                <strong>Project Number:</strong> {{timesheet.project.id}}<br>
-                                <strong>Project Title:</strong> {{timesheet.project.name|title}}<br><br>
-                                <strong>Name of Expert:</strong> {{timesheet.project.expert.name|title}}<br>
-                                <strong>Position of Expert:</strong> {{timesheet.project.expert.position|title}}<br><br>
-                                <strong>Timesheet Title:</strong> {{timesheet.title|title}}<br>
-                                <strong>Timesheet Detailst:</strong> {{timesheet.details|title}}<br><br>
-                                <strong>Invoice #</strong> {{timesheet.id|stringformat:"07d"}}<br>
+                    <div class="row" style="padding: 20px">
+                        <div class="col-lg-12">
+                            <strong>Project Title:</strong> {{timesheet.project.name|title}}<br>
+                            <strong>Project Number:</strong> {{ timesheet.project.id }}<br>
+                            <strong>Place of Activity:</strong> {{ timesheet.project.place_of_activity|title }}<br><br>
 
-                            </address>
+                            <strong>Name of Expert:</strong> {{timesheet.project.expert.name|title}}<br>
+                            <strong>Position of Expert:</strong> {{timesheet.project.expert.position|title}}<br><br>
                         </div>
-                        <div class="col-xs-6 text-right">
-                            <address>
-                                {% comment %} <strong>Order Date:</strong><br> {% endcomment %}
-                                {% comment %} {{invoice.date}}<br><br> {% endcomment %}
-                            </address>
-                        </div>
+                    </div>
+                    <div class="text-center col-lg-12" style="font-size: 20px">
+                        <strong>{{ timesheet.project.name|title }} - {{ timesheet_month }}/{{ timesheet.year }}</strong>
                     </div>
                 </div>
             </div>
             
-            <div class="row">
-                <div class="col-md-12">
+            <div class="row" style="padding: 20px">
+                <div class="col-xs-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title"><strong>Order summary</strong></h3>
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
-                                <table class="table table-condensed">
+                                <table class="table table-condensed table-hover table-bordered table-responsive">
                                     <thead>
-                                        <tr style="border: 1px solid;">
-                                            <th>Date</th>
+                                        <tr>
                                             <th class="text-left">Days</th>
+                                            <th class="text-left">Date</th>
                                             <th class="text-left">Day Worked</th>
-                                            <th class="text-left">Place of Activity</th>
-                                            <th class="text-left">Activity</th>
-
-
+                                            <th class="text-left">Unit Perdiem</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <!-- foreach ($order->lineItems as $line) or some such thing here -->
                                         
                                         {% for record in timesheet.timesheet_record.all %}
-                                        <tr style="border: 1px solid;">
-                                            <td><strong>{{record.date}}</strong></td>
-                                            <td class="text-left"><strong>{{record.day}}</strong></td>
-                                            <td class="text-left"><strong>{{record.day_worked|floatformat:-2}}</strong></td>
-                                            <td class="text-left"><strong>{{record.place_of_activity|default:'-'}}</strong></td>
-                                            <td class="text-left"><strong>{{record.activities|default:'-'}}</strong></td>
-
-                                        </tr>
+                                            <tr>
+                                                <td class="text-left">{{ record.day }}</td>
+                                                <td>{{record.date}}</td>
+                                                <td class="text-left">{{ record.day_worked|floatformat:-2 }}</td>
+                                                <td class="text-left">{{ record.perdiem|floatformat:-2 }}</td>
+                                            </tr>
                                         {% endfor %}
                                         <tr>
                                             <td></td>
                                             <td class="text-left"></td>
                                             <td class="text-left"></td>
                                             <td class="text-left"></td>
-                                            <td class="text-left"></td>
 
                                         </tr>
-                                        <tr style="border: 1px solid;">
+                                        <tr>
                                             <td></td>
-                                            <td> Total Days Worked: <strong>{{total_worked_days}}</strong></td>
+                                            <td> <strong>Total Days Worked: {{ total_worked_days|floatformat:-2 }}</strong></td>
                                             <td></td>
-                                            <td> Total Expert Perdiem: <strong>{{ total_expert_perdiem }}</strong></td>
+                                            <td> <strong>Total Unit Perdiem: {{ total_expert_perdiem|floatformat:-2 }}</strong></td>
+                                        </tr>
+                                        <tr>
                                             <td></td>
+                                            <td> <strong>Total Amount Due: {{ amount_due|floatformat:-2 }}</></td>
+                                            <td></td>
+                                            <td> <strong>Total Perdiem Due: {{ perdiem_due|floatformat:-2 }}</></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" style="padding: 20px">
                         <div class="col-xs-6">
                             <h3>Please Make Payment to</h3>
                             <address>
-                                <strong>Name of the Bank:</strong> {{timesheet.project.expert.name_of_bank}}<br>
-                                <strong>Address of the Bank:</strong> {{timesheet.project.expert.address_of_bank}}<br><br>
+                                <strong>Name of the Bank:</strong> {{timesheet.project.expert.name_of_bank|title}}<br>
+                                <strong>Address of the Bank:</strong> {{timesheet.project.expert.address_of_bank|title}}<br><br>
                                 <strong>Account Number:</strong> {{timesheet.project.expert.account_no}}<br>
                                 <strong>IBAN:</strong> {{timesheet.project.expert.iban}}<br>
                                 <strong>Swift Code:</strong> {{timesheet.project.expert.swift_code}}<br>
@@ -130,5 +121,14 @@
             </div>
         </div>
       </div>
-</section>  
+</section>
+<script>
+    function PrintInvoice(divName){
+         var printContents = document.getElementById(divName).innerHTML;
+         var originalContents = document.body.innerHTML;
+         document.body.innerHTML = printContents;
+         window.print();
+         document.body.innerHTML = originalContents;
+    }
+</script>
 {% endblock %}

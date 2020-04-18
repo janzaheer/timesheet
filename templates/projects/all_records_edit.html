@@ -38,26 +38,31 @@
                 <table id="example1" class="table table-bordered table-striped table-fixed" style="table-layout: fixed" >
                     <thead>
                         <tr>
+                            <th>Day</th>
                             <th>Date</th>
                             <th>Day Worked</th>
-                            <th>Expert PerDiem</th>
-                            <th>Place of Activity</th>
-                            <th>Activities</th>
+                            <th>Unit PerDiem</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for record in records %}
                             <tr>
+                                <td><input type="text" class="form form-control" value="{{ record.date|date:'l' }}" readonly></td>
                                 <td><input type="date" name="date" class="form form-control" value="{{record.date|date:'Y-m-d'}}"><input type="text" value="{{record.id}}" name="ids" hidden></td>
                                 <td>
-                                    <select class="form-control" name="day_worked">
+                                    <select class="form-control" name="day_worked" autocomplete="off">
                                         <option value="0" {% if record.day_worked == 0 %}selected="selected"{% endif %}>0</option>
+                                        <option value="0.5" {% if record.day_worked == 0.5 %}selected="selected"{% endif %}>0.5</option>
                                         <option value="1" {% if record.day_worked == 1 %}selected="selected"{% endif %}>1</option>
                                     </select>
                                 </td>
-                                <td><input type="text" class="form form-control" value="{{record.timesheet.project.expert.perdiem|floatformat:-2 }}" readonly></td>
-                                <td><input type="text" name="place_of_activity" class="form form-control" value="{{record.place_of_activity|default:"" }}"></td>
-                                <td><input type="text" name="activities" class="form form-control" value="{{record.activities|default:"" }}"></td>
+                                <td>
+                                    <select class="form-control" name="perdiem" autocomplete="off">
+                                        <option value="0" {% if record.perdiem == '0' %}selected="selected"{% endif %}>0</option>
+                                        <option value="0.5" {% if record.perdiem == '0.5' %}selected="selected"{% endif %}>0.5</option>
+                                        <option value="1" {% if record.perdiem == '1' %}selected="selected"{% endif %}>1</option>
+                                    </select>
+                                </td>
                             </tr>
                         {% endfor %}
                     </tbody>

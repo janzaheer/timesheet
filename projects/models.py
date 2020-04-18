@@ -15,6 +15,7 @@ class Project(models.Model):
         related_name='expert_project',
         on_delete=models.SET_NULL
     )
+    place_of_activity = models.CharField(max_length=200, blank=True, null=True)
     service_number_contract = models.CharField(max_length=200, null=True, blank=True)
     internal_reference = models.CharField(max_length=200, null=True, blank=True)
     country = models.CharField(max_length=200, null=True, blank=True)

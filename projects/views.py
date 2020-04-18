@@ -1,7 +1,8 @@
-import itertools 
+import itertools
+import csv
 from calendar import monthrange
 from django.urls import reverse, reverse_lazy
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.views.generic import (
     TemplateView, FormView, UpdateView, DeleteView, ListView, View
 )
@@ -22,6 +23,21 @@ MONTHS_CONTEXT = [
     (6, 'June'), (7, 'July'), (8, 'August'), (9, 'September'),
     (10, 'October'), (11, 'November'), (12, 'December')
 ]
+
+MONTHS_DICT = {
+    '1': 'Jan',
+    '2': 'Feb',
+    '3': 'Mar',
+    '4': 'Apr',
+    '5': 'May',
+    '6': 'June',
+    '7': 'July',
+    '8': 'Aug',
+    '9': 'Sept',
+    '10': 'Oct',
+    '11': 'Nov',
+    '12': 'Dec',
+}
 
 YEARS_CONTEXT = [
     '2019', '2020', '2022', '2023', '2024', '2025', '2026', '2027',
@@ -157,17 +173,16 @@ class TimesheetRecordAllSaveView(LoginRequiredMixin, View):
         ids = self.request.POST.getlist ('ids')
         dates = self.request.POST.getlist('date')
         day_workeds = self.request.POST.getlist('day_worked')
-        place_of_activities = self.request.POST.getlist('place_of_activity')
-        activities = self.request.POST.getlist('activities')
+        perdiems = self.request.POST.getlist('perdiem')
 
-        for i, date, day_work, place_of_activity, activity in itertools.zip_longest(
-            ids, dates, day_workeds, place_of_activities, activities):
+
+        for i, date, day_work, perdiem in itertools.zip_longest(
+            ids, dates, day_workeds, perdiems):
             if i:
                 record = TimeSheetRecord.objects.get(id=i)
                 record.date=date
                 record.day_worked=day_work
-                record.place_of_activity=place_of_activity
-                record.activities=activity
+                record.perdiem=perdiem
                 record.save()
         return HttpResponseRedirect(reverse(
             'projects:project_timesheets',
@@ -209,7 +224,53 @@ class TimeSheetInvoiceView(LoginRequiredMixin, ExpertUserValidateMixin, Template
             invoice = Timesheet.objects.get(id=self.kwargs.get('pk'))
         except Timesheet.DoesNotExist:
             return Http404('Invoice does not exists in database')
+
         record = invoice.timesheet_record.all()
+        try:
+            total_worked_days = record.aggregate(
+                total_days=Sum('day_worked'))
+            total_worked_days = total_worked_days.get('total_days') or 0
+        except:
+            total_worked_days = 0
+
+        try:
+            total_expert_perdiem = record.filter(
+                day_worked=1).aggregate(total_perdiem=Sum('perdiem'))
+            print(total_expert_perdiem)
+            total_expert_perdiem = total_expert_perdiem.get('total_perdiem') or 0
+        except:
+            total_expert_perdiem = 0
+
+        amount_due = total_worked_days * (invoice.project.expert.daily_fee or 0)
+        perdiem_due = total_expert_perdiem * (invoice.project.expert.perdiem or 0)
+
+        timesheet_month = MONTHS_DICT.get(invoice.month, 1)
+
+        context.update({
+            'timesheet': invoice,
+            'records': record,
+            'amount_due': amount_due,
+            'perdiem_due': perdiem_due,
+            'timesheet_month': timesheet_month,
+        })
+        context["total_worked_days"] = total_worked_days
+        context["total_expert_perdiem"] = total_expert_perdiem
+        return context
+
+
+class ExportInvoiceCsvView(View):
+    def get(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = (
+            'attachment; filename="somefilename.csv"')
+
+        try:
+            timesheet = Timesheet.objects.get(
+                self.request.get('timesheet_id'))
+        except Exception as e:
+            raise Http404(e)
+
+        record = timesheet.timesheet_record.all()
 
         try:
             total_worked_days = record.aggregate(
@@ -226,11 +287,18 @@ class TimeSheetInvoiceView(LoginRequiredMixin, ExpertUserValidateMixin, Template
         except:
             total_expert_perdiem = 0
 
-        context.update({
-           'timesheet':invoice,
-           'records': record
+        amount_due = total_worked_days * (timesheet.project.expert.daily_fee or 0)
+        perdiem_due = total_expert_perdiem * (timesheet.project.expert.perdiem or 0)
 
-        })
-        context["total_worked_days"] = total_worked_days
-        context["total_expert_perdiem"] = total_expert_perdiem
-        return context
+        timesheet_month = MONTHS_DICT.get(timesheet.month, 1)
+
+        writer = csv.writer(response)
+        writer.writerow(
+            [
+                '', '',
+                'Timesheet Title', '',
+                timesheet.project.name.title() + '-' + timesheet_month + '/' + timesheet.year
+            ]
+        )
+
+        return response
