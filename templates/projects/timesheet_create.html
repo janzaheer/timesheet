@@ -26,14 +26,14 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <label>Project</label>
-                            <input type="text" class="form-control" placeholder="Project" name="project_name" value="{{ project.name|title }}" readonly></input><br>
-                            <input type="hidden" class="form-control" placeholder="Project" name="project" value="{{ project.id|title }}" readonly></input><br>
+                            <input type="text" class="form-control" placeholder="Project" name="project_name" value="{{ project.name|title }}" readonly><br>
+                            <input type="hidden" class="form-control" placeholder="Project" name="project" value="{{ project.id|title }}" readonly><br>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <label>Title</label>
-                            <input type="text" class="form-control" placeholder="Add Timesheet Title" name="title" required></input><br>
+                            <input type="text" class="form-control" placeholder="Add Timesheet Title" name="title" required><br>
                         </div>
                     </div>
                     <div class="row">
@@ -62,7 +62,7 @@
                             </select><br>
                         </div>
                     </div>
-                    <input type="hidden" name="expert" value="{{ request.user.user_expert.expert.id }}"></input>
+                    <input type="hidden" name="expert" value="{{ request.user.user_expert.expert.id }}">
                     <div class="row">
                         <div class="col-lg-12 text-right">
                             <button type="submit" class="btn btn-primary">Save</button><br>

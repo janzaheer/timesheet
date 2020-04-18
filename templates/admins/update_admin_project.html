@@ -12,6 +12,11 @@
     <li class="active">Update</li>
     </ol>
 </section>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 <section class="content">
       <!-- COLOR PALETTE -->
       <div class="box box-default color-palette-box">
@@ -26,10 +31,9 @@
                     <div class="row">
                         <div class="col-lg-12">
                         <label>Select Expert</label>
-                        <select class="form-control" name="expert" required>
-                                <option value="{{object.expert.id}}">{{object.expert.name}}</option>
+                        <select class="form-control selectpicker" name="experts" multiple="multiple" data-live-search="true" required>
                             {% for expert in experts %}
-                                <option value='{{ expert.id }}'>{{ expert.name|title }}</option>
+                                <option value='{{ expert.id }}' {% if expert.id in project_experts %}selected="selected"{% endif %}>{{ expert.name|title }}</option>
                             {% endfor %}
                         </select><br>
                     </div>
@@ -37,49 +41,55 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <label>Project Name</label>
-                            <input type="text" class="form-control" value="{{object.name}}" name="name" required></input><br>
+                            <input type="text" class="form-control" value="{{object.name}}" name="name" required><br>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <label>Service Number Contract</label>
-                            <input type="text" class="form-control" value="{{object.service_number_contract}}" name="service_number_contract" required></input><br>
+                            <input type="text" class="form-control" value="{{object.service_number_contract}}" name="service_number_contract" required><br>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <label>Internal Reference</label>
-                            <input type="text" class="form-control" value="{{object.internal_reference}}" name="internal_reference" required></input><br>
+                            <input type="text" class="form-control" value="{{object.internal_reference}}" name="internal_reference" required><br>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <label>Country</label>
-                            <input type="text" class="form-control" value="{{object.country}}" name="country" required></input><br>
+                            <input type="text" class="form-control" value="{{object.country}}" name="country" required><br>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <label>Name of Company</label>
-                            <input type="text" class="form-control" value="{{object.name_of_company}}" name="name_of_company" required></input><br>
+                            <input type="text" class="form-control" value="{{object.name_of_company}}" name="name_of_company" required><br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Place of Activity</label>
+                            <input type="text" class="form-control" placeholder="Add Place of Activity" name="place_of_activity" value="{{object.place_of_activity}}" required><br>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <label>Attention Mails</label>
-                            <input type="text" class="form-control" value="{{object.attention_mails}}" name="attention_mails" required></input><br>
+                            <input type="text" class="form-control" value="{{object.attention_mails}}" name="attention_mails" required><br>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <label>Telephone Company</label>
-                            <input type="text" class="form-control" value="{{object.telephone_company}}" name="telephone_company" required></input><br>
+                            <input type="text" class="form-control" value="{{object.telephone_company}}" name="telephone_company" required><br>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <label>VAT Company</label>
-                            <input type="text" class="form-control" value="{{object.vat_company}}" name="vat_company" required></input><br>
+                            <input type="text" class="form-control" value="{{object.vat_company}}" name="vat_company" required><br>
                         </div>
                     </div>
                     <div class="row">
@@ -94,7 +104,7 @@
                             <textarea class="form-control" name="etails" rows="4">{{object.description}}</textarea><br>
                         </div>
                     </div>
-                    <input type="hidden" name="admin" value="{{ request.user.user_admin.admin.id }}"></input>
+                    <input type="hidden" name="admin" value="{{ request.user.user_admin.admin.id }}">
                     <div class="row">
                         <div class="col-lg-12 text-right">
                             <button type="submit" class="btn btn-primary">Update</button><br>
