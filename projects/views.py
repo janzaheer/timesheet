@@ -97,7 +97,7 @@ class TimesheetFormView(LoginRequiredMixin, ExpertUserValidateMixin, FormView):
                     timesheet=timesheet,
                     day=weekday,
                     date= '%d-%d-%d' % (year, month, day),
-                    perdiem=timesheet.project.expert.perdiem 
+                    perdiem=timesheet.expert.perdiem
                 )
 
         return HttpResponseRedirect(reverse(
@@ -148,7 +148,6 @@ class TimesheetRecordListView(LoginRequiredMixin, ExpertUserValidateMixin, ListV
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context = super().get_context_data(**kwargs)
         context["timesheet"] = Timesheet.objects.get(id=self.kwargs.get('pk'))
         return context
 
@@ -174,7 +173,6 @@ class TimesheetRecordAllSaveView(LoginRequiredMixin, View):
         dates = self.request.POST.getlist('date')
         day_workeds = self.request.POST.getlist('day_worked')
         perdiems = self.request.POST.getlist('perdiem')
-
 
         for i, date, day_work, perdiem in itertools.zip_longest(
             ids, dates, day_workeds, perdiems):
@@ -236,13 +234,12 @@ class TimeSheetInvoiceView(LoginRequiredMixin, ExpertUserValidateMixin, Template
         try:
             total_expert_perdiem = record.filter(
                 day_worked=1).aggregate(total_perdiem=Sum('perdiem'))
-            print(total_expert_perdiem)
             total_expert_perdiem = total_expert_perdiem.get('total_perdiem') or 0
         except:
             total_expert_perdiem = 0
 
-        amount_due = total_worked_days * (invoice.project.expert.daily_fee or 0)
-        perdiem_due = total_expert_perdiem * (invoice.project.expert.perdiem or 0)
+        amount_due = total_worked_days * (invoice.expert.daily_fee or 0)
+        perdiem_due = total_expert_perdiem * (invoice.expert.perdiem or 0)
 
         timesheet_month = MONTHS_DICT.get(invoice.month, 1)
 
@@ -257,6 +254,18 @@ class TimeSheetInvoiceView(LoginRequiredMixin, ExpertUserValidateMixin, Template
         context["total_expert_perdiem"] = total_expert_perdiem
         return context
 
+
+class AdminProjectReports(LoginRequiredMixin, TemplateView):
+    template_name = 'projects/project_reports.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            project = Project.objects.get(id=self.kwargs.get('project_id'))
+        except Exception as e:
+            raise Http404(e)
+
+        return context
 
 class ExportInvoiceCsvView(View):
     def get(self, request, *args, **kwargs):

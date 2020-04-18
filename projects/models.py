@@ -10,10 +10,8 @@ class Project(models.Model):
         related_name='admin_projects',
         on_delete=models.SET_NULL
     )
-    expert = models.ForeignKey(
-        Expert,  blank=True, null=True,
-        related_name='expert_project',
-        on_delete=models.SET_NULL
+    experts = models.ManyToManyField(
+        Expert, related_name='project_experts',
     )
     place_of_activity = models.CharField(max_length=200, blank=True, null=True)
     service_number_contract = models.CharField(max_length=200, null=True, blank=True)
@@ -36,6 +34,10 @@ class Timesheet(models.Model):
         Project, related_name='project_timesheets',
         on_delete=models.SET_NULL, blank=True, null=True
     )
+    expert = models.ForeignKey(
+        Expert, related_name='expert_timesheet', on_delete=models.SET_NULL,
+        blank=True, null=True
+    )
     title = models.CharField(max_length=200)
     details = models.TextField(
         max_length=1000, blank=True, null=True
@@ -45,6 +47,7 @@ class Timesheet(models.Model):
 
     def __str__(self):
         return self.title
+
 
 class TimeSheetRecord(models.Model):
     DAY_MONDAY = 'monday'
@@ -64,6 +67,7 @@ class TimeSheetRecord(models.Model):
         (DAY_SATURDAY, 'saturday'),
         (DAY_SUNDAY, 'sunday'),
     )
+
     timesheet = models.ForeignKey(
         Timesheet, related_name='timesheet_record',
         on_delete=models.SET_NULL, blank=True, null=True
@@ -81,7 +85,7 @@ class TimeSheetRecord(models.Model):
     place_of_activity = models.CharField(max_length=200, null=True, blank=True)
     activities = models.CharField(max_length=200, null=True, blank=True)
     total_month = models.CharField(max_length=200, null=True, blank=True)
-    def __str__(self):
-        return self.timesheet.title 
 
+    def __str__(self):
+        return self.timesheet.title
     

@@ -23,7 +23,7 @@
                     <tr>
                         <th>S/No</th>
                         <th>Project</th>
-                        <th>Expert</th>
+                        <th>Experts</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -32,9 +32,10 @@
                         <tr>
                             <td>{{ forloop.counter }}</td>
                             <td>{{ project.name|title }}</td>
-                            <td>{{ project.expert.name|title}}</td>
+                            <td>{% for expert in project.experts.all %}<button class="btn btn-default btn-xs" style="color: green">{{ expert.name|title }}</button>&nbsp;&nbsp;{% endfor %}</td>
                             <td>
                                 <a href="{% url 'admins:admin_project_update' pk=project.id %}"><button class="btn btn-primary btn-xs">Edit</button></a>
+                                <a href="{% url 'projects:project_reports' project_id=project.id %}"><button class="btn btn-info btn-xs">Reports</button></a>
                                 <a href="{% url 'admins:admin_project_delete' pk=project.id %}"><button class="btn btn-danger btn-xs">Delete</button></a>
                             </td>
                         </tr>

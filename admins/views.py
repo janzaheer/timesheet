@@ -36,9 +36,7 @@ class AdminProjectFormView(LoginRequiredMixin, AdminUserValidateMixin, FormView)
     form_class = ProjectForm
 
     def form_valid(self, form):
-        project = form.save()
-        project.save()
-
+        form.save()
         return HttpResponseRedirect(reverse('admins:index'))
 
     def form_invalid(self, form):
@@ -56,16 +54,16 @@ class AdminProjectUpdateView(LoginRequiredMixin, AdminUserValidateMixin, UpdateV
     model = Project
 
     def form_valid(self, form):
-        project = form.save()
+        form.save()
         return HttpResponseRedirect(reverse('admins:index'))
     
     def form_invalid(self, form):
         return super().form_invalid(form)
 
-    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["experts"] = Expert.objects.all()
+        context["project_experts"] = self.object.experts.values_list('id', flat=True)
         return context
 
 

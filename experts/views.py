@@ -12,7 +12,6 @@ from .forms import ExpertForm
 from admins.views import AdminUserValidateMixin
 
 
-
 class ExpertsListView(LoginRequiredMixin, AdminUserValidateMixin, ListView):
     model = Expert
     template_name = 'experts/experts_list.html'
@@ -53,8 +52,8 @@ class ExpertUpdateView(LoginRequiredMixin, UpdateView):
     model =  Expert
 
     def form_valid(self, form):
-        expert = form.save()
-        return HttpResponseRedirect(reverse('experts:expert_list'))
+        form.save()
+        return HttpResponseRedirect(reverse('experts:expert_projects'))
 
 
 class ExpertProjects(LoginRequiredMixin, ListView):
@@ -63,6 +62,4 @@ class ExpertProjects(LoginRequiredMixin, ListView):
     template_name = 'projects/expert_projects.html'
     
     def get_queryset(self):
-        return Project.objects.filter(
-            expert__id=self.request.user.user_expert.expert.id
-            ).order_by('name')
+        return self.request.user.user_expert.expert.project_experts.all().order_by('name')

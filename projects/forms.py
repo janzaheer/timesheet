@@ -7,6 +7,9 @@ class ProjectForm(forms.ModelForm):
         model = Project
         fields = '__all__'
 
+    def clean_experts(self):
+        return self.data.getlist('experts')
+
 
 class TimesheetForm(forms.ModelForm):
     class Meta:
