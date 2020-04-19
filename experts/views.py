@@ -49,7 +49,7 @@ class ExpertCreateFormView(LoginRequiredMixin, AdminUserValidateMixin, FormView)
 class ExpertUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'experts/experts_update.html'
     form_class = ExpertForm
-    model =  Expert
+    model = Expert
 
     def form_valid(self, form):
         form.save()

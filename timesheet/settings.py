@@ -25,7 +25,7 @@ SECRET_KEY = 'x^g_m=6djvkbpwgrdd@oapimy0*h(fpnr2z7=b320m3=e4#d7%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['timesheetproj.herokuapp.com', '*']
+ALLOWED_HOSTS = ['timesheetproj.herokuapp.com', '*', '127.0.0.1']
 
 
 # Application definition
