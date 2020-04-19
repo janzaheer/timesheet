@@ -68,7 +68,9 @@ class ProjectTimesheets(LoginRequiredMixin, ExpertUserValidateMixin, ListView):
 
     def get_queryset(self):
         return Timesheet.objects.filter(
-            project__id=self.kwargs.get('project_id'))
+            project__id=self.kwargs.get('project_id'),
+            expert=self.request.user.user_expert.expert
+        )
 
 
 
@@ -232,8 +234,8 @@ class TimeSheetInvoiceView(LoginRequiredMixin, ExpertUserValidateMixin, Template
             total_worked_days = 0
 
         try:
-            total_expert_perdiem = record.filter(
-                day_worked=1).aggregate(total_perdiem=Sum('perdiem'))
+            total_expert_perdiem = record.aggregate(
+                total_perdiem=Sum('perdiem'))
             total_expert_perdiem = total_expert_perdiem.get('total_perdiem') or 0
         except:
             total_expert_perdiem = 0
@@ -264,50 +266,158 @@ class AdminProjectReports(LoginRequiredMixin, TemplateView):
             project = Project.objects.get(id=self.kwargs.get('project_id'))
         except Exception as e:
             raise Http404(e)
+        timesheets = project.project_timesheets.all()
+        experts = project.experts.all()
 
+        data = []
+        for timesheet in timesheets:
+            duration = {
+                MONTHS_DICT.get(timesheet.month) + '-' + timesheet.year: []
+            }
+            for expert in experts:
+                if expert.id == timesheet.expert.id:
+                    record = timesheet.timesheet_record.all()
+                    try:
+                        total_worked_days = record.aggregate(
+                            total_days=Sum('day_worked'))
+                        total_worked_days = total_worked_days.get(
+                            'total_days') or 0
+                    except:
+                        total_worked_days = 0
+
+                    try:
+                        total_expert_perdiem = record.aggregate(
+                            total_perdiem=Sum('perdiem'))
+                        total_expert_perdiem = total_expert_perdiem.get(
+                            'total_perdiem') or 0
+                    except:
+                        total_expert_perdiem = 0
+
+                    duration[MONTHS_DICT.get(timesheet.month) + '-' + timesheet.year].append({
+                        'expert': expert.name,
+                        'days': total_worked_days,
+                        'perdiem': total_expert_perdiem,
+                    })
+
+                else:
+                    duration[MONTHS_DICT.get(timesheet.month) + '-' + timesheet.year].append({
+                        'expert': expert.name,
+                        'days': 0,
+                        'perdiem': 0,
+                    })
+
+            data.append(duration)
+        context['data'] = data
+        context['project'] = project
+        context['experts'] = project.experts.all()
         return context
+
 
 class ExportInvoiceCsvView(View):
     def get(self, request, *args, **kwargs):
-        response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = (
-            'attachment; filename="somefilename.csv"')
-
         try:
-            timesheet = Timesheet.objects.get(
-                self.request.get('timesheet_id'))
+            project = Project.objects.get(id=self.kwargs.get('project_id'))
         except Exception as e:
             raise Http404(e)
 
-        record = timesheet.timesheet_record.all()
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = (
+            'attachment; filename="%s.csv"' % project.name
+        )
 
-        try:
-            total_worked_days = record.aggregate(
-                total_days=Sum('day_worked'))
-            total_worked_days = total_worked_days.get('total_days') or 0
-        except:
-            total_worked_days = 0
 
-        try:
-            total_expert_perdiem = record.filter(
-                day_worked=1).aggregate(total_perdiem=Sum('perdiem'))
-            print(total_expert_perdiem)
-            total_expert_perdiem = total_expert_perdiem.get('total_perdiem') or 0
-        except:
-            total_expert_perdiem = 0
+        timesheets = project.project_timesheets.all()
+        experts = project.experts.all()
 
-        amount_due = total_worked_days * (timesheet.project.expert.daily_fee or 0)
-        perdiem_due = total_expert_perdiem * (timesheet.project.expert.perdiem or 0)
+        context = {}
+        data = []
+        for timesheet in timesheets:
+            duration = {
+                MONTHS_DICT.get(timesheet.month) + '-' + timesheet.year: []
+            }
+            for expert in experts:
+                if expert.id == timesheet.expert.id:
+                    record = timesheet.timesheet_record.all()
+                    try:
+                        total_worked_days = record.aggregate(
+                            total_days=Sum('day_worked'))
+                        total_worked_days = total_worked_days.get(
+                            'total_days') or 0
+                    except:
+                        total_worked_days = 0
 
-        timesheet_month = MONTHS_DICT.get(timesheet.month, 1)
+                    try:
+                        total_expert_perdiem = record.aggregate(
+                            total_perdiem=Sum('perdiem'))
+                        total_expert_perdiem = total_expert_perdiem.get(
+                            'total_perdiem') or 0
+                    except:
+                        total_expert_perdiem = 0
+
+                    duration[MONTHS_DICT.get(timesheet.month) + '-' + timesheet.year].append({
+                        'expert': expert.name,
+                        'days': total_worked_days,
+                        'perdiem': total_expert_perdiem,
+                    })
+
+                else:
+                    duration[MONTHS_DICT.get(timesheet.month) + '-' + timesheet.year].append({
+                        'expert': expert.name,
+                        'days': 0,
+                        'perdiem': 0,
+                    })
+
+            data.append(duration)
+        context['data'] = data
+        context['project'] = project
+        context['experts'] = project.experts.all()
+
+
 
         writer = csv.writer(response)
         writer.writerow(
             [
                 '', '',
-                'Timesheet Title', '',
-                timesheet.project.name.title() + '-' + timesheet_month + '/' + timesheet.year
+                project.name.title()
             ]
         )
+
+        writer.writerow([])
+        writer.writerow([])
+        days_head = ['Days']
+
+        for d in data:
+            for key, val in d.items():
+                days_head.append(key)
+
+        writer.writerow(days_head)
+
+        for expert in project.experts.all():
+            days_data = [expert.name]
+            for d in data:
+                for key, val in d.items():
+                    for v in val:
+                        if expert.name == v['expert']:
+                            days_data.append(v['days'])
+            writer.writerow(days_data)
+
+        writer.writerow([])
+        writer.writerow([])
+        perdiem_head = ['Perdiem']
+
+        for d in data:
+            for key, val in d.items():
+                perdiem_head.append(key)
+
+        writer.writerow(perdiem_head)
+
+        for expert in project.experts.all():
+            perdiem_data = [expert.name]
+            for d in data:
+                for key, val in d.items():
+                    for v in val:
+                        if expert.name == v['expert']:
+                            perdiem_data.append(v['perdiem'])
+            writer.writerow(perdiem_data)
 
         return response

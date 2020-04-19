@@ -1,4 +1,83 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1 style="padding: 50px">Under Construction</h1>
+    <section class="content-header">
+        <h1>
+            Timesheet
+            <small>Timesheet Management System</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Project Reports</li>
+        </ol>
+    </section>
+    <section class="content">
+        <!-- COLOR PALETTE -->
+        <div class="box box-default color-palette-box">
+            <div class="box-header with-border">
+                <h3 class="box-title"><i class="fa fa-tag"></i> Project Reports</h3>
+                <a href="{% url 'projects:project_reports_export' project_id=project.id %}"><button class="btn btn-default btn-xs" style="float: right; color:green">Export</button></a>
+            </div>
+            <div class="box-body">
+                <h2 class="text-center">{{ project.name|title }}</h2><hr>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>Days</th>
+                        {% for d in data %}
+
+                            {% for key, val in d.items %}
+                                <th>{{ key }}</th>
+                            {% endfor %}
+                        {% endfor %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for expert in experts %}
+                        <tr>
+                            <td>{{ expert.name }}</td>
+                            {% for d in data %}
+                                {% for key, val in d.items %}
+                                    {% for v in val %}
+                                        {% if expert.name == v.expert %}
+                                            <td>{{ v.days }}</td>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endfor %}
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <br><br>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>Perdiem</th>
+                        {% for d in data %}
+                            {% for key, val in d.items %}
+                                <th>{{ key }}</th>
+                            {% endfor %}
+                        {% endfor %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for expert in experts %}
+                        <tr>
+                            <td>{{ expert.name }}</td>
+                            {% for d in data %}
+                                {% for key, val in d.items %}
+                                    {% for v in val %}
+                                        {% if expert.name == v.expert %}
+                                            <td>{{ v.perdiem }}</td>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endfor %}
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
 {% endblock %}

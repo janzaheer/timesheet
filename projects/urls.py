@@ -3,7 +3,7 @@ from django.urls import path
 from .views import (TimesheetListView, TimesheetFormView, TimesheetUpdateView,
     TimesheetRecordListView, TimesheetReccordFormView, TimesheetRecordUpdateView,
     TimeSheetInvoiceView, TimesheetRecordAllEditView, TimesheetRecordAllSaveView,
-    ProjectTimesheets, AdminProjectReports
+    ProjectTimesheets, AdminProjectReports, ExportInvoiceCsvView
 )
 
 urlpatterns = [
@@ -41,5 +41,10 @@ urlpatterns = [
         '<int:project_id>/reports',
         AdminProjectReports.as_view(),
         name='project_reports'
+    ),
+    path(
+        '<int:project_id>/reports/export',
+        ExportInvoiceCsvView.as_view(),
+        name='project_reports_export'
     ),
 ]
